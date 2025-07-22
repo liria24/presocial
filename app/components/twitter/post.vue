@@ -82,14 +82,19 @@ const props = defineProps<Props>()
                             format="webp"
                             class="border-muted size-[15px] border"
                         />
-                        <span
-                            contenteditable="true"
-                            role="textbox"
-                            spellcheck="false"
-                            class="text-dimmed inline-block min-w-[2ch] cursor-text pb-0.5 text-[15px] leading-none text-nowrap outline-none"
+                        <p
+                            class="text-dimmed text-[15px] leading-none text-nowrap"
                         >
-                            @{{ props.data.userId }}
-                        </span>
+                            <span>@</span>
+                            <span
+                                contenteditable="true"
+                                role="textbox"
+                                spellcheck="false"
+                                class="inline-block min-w-[1h] cursor-text pb-0.5 outline-none"
+                            >
+                                {{ props.data.userId }}
+                            </span>
+                        </p>
                         <Icon
                             name="lucide:dot"
                             size="10"
@@ -99,7 +104,7 @@ const props = defineProps<Props>()
                             contenteditable="true"
                             role="textbox"
                             spellcheck="false"
-                            class="text-dimmed inline-block min-w-[2ch] cursor-text pb-0.5 text-[15px] leading-none text-nowrap outline-none"
+                            class="text-dimmed inline-block min-w-[1ch] cursor-text pb-0.5 text-[15px] leading-none text-nowrap outline-none"
                         >
                             {{ props.data.time }}
                         </span>

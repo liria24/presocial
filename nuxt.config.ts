@@ -37,8 +37,6 @@ export default defineNuxtConfig({
     },
 
     runtimeConfig: {
-        liria: { accessToken: '' },
-        vercel: { token: '', edgeConfig: { endpoint: '' } },
         public: {
             siteUrl: baseUrl,
         },

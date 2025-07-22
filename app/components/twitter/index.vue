@@ -91,6 +91,7 @@ const icon = computed(
                 v-model="state.badge"
                 :items="badgeItems"
                 :icon="icon"
+                :placeholder="'Select Badge'"
                 class="w-48"
             />
             <UInput
