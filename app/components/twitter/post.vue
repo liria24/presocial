@@ -6,7 +6,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-    <div class="flex min-h-12 flex-col gap-1 bg-neutral-950 p-3.5">
+    <div class="flex min-h-12 flex-col gap-1 bg-black p-3.5">
         <div
             v-if="props.data.repostedUsername.length"
             class="text-muted flex items-center gap-2 pl-6"
@@ -18,43 +18,24 @@ const props = defineProps<Props>()
         </div>
 
         <div class="flex items-start gap-3">
-            <UPopover>
-                <button type="button" class="cursor-pointer">
-                    <img
-                        v-if="props.data.avatarUrl?.length"
-                        :src="props.data.avatarUrl"
-                        :alt="props.data.username"
-                        class="aspect-square size-10 rounded-full"
-                    />
-                    <img
-                        v-else
-                        src="/twitter-default.jpg"
-                        alt="Default Avatar"
-                        class="aspect-square size-10 rounded-full"
-                    />
-                </button>
-
-                <template #content>
-                    <div class="flex flex-col gap-2 p-3">
-                        <UInput
-                            v-model="props.data.avatarUrl"
-                            :placeholder="'Enter avatar image URL...'"
-                            variant="soft"
-                        />
-                        <USeparator label="OR" />
-                        <UInput type="file" variant="soft" />
-                    </div>
-                </template>
-            </UPopover>
+            <img
+                v-if="props.data.avatarUrl?.length"
+                :src="props.data.avatarUrl"
+                :alt="props.data.username"
+                class="aspect-square size-10 rounded-full"
+            />
+            <img
+                v-else
+                src="/twitter-default.jpg"
+                alt="Default Avatar"
+                class="aspect-square size-10 rounded-full"
+            />
 
             <div class="flex grow flex-col gap-1.5">
                 <div class="flex items-center gap-1">
                     <div class="flex grow items-center gap-1">
                         <span
-                            contenteditable="true"
-                            role="textbox"
-                            spellcheck="false"
-                            class="inline-block min-w-[1ch] cursor-text pt-px text-[15px] leading-none font-bold text-nowrap outline-none"
+                            class="pt-px text-[15px] leading-none font-bold text-nowrap"
                         >
                             {{ props.data.username }}
                         </span>
@@ -73,27 +54,16 @@ const props = defineProps<Props>()
                             name="presocial:twitter-badge-gray"
                             size="18"
                         />
-                        <NuxtImg
+                        <img
                             v-if="props.data.organizationAvatarUrl?.length"
                             :src="props.data.organizationAvatarUrl"
                             alt="Organization Avatar"
-                            :width="15"
-                            :height="15"
-                            format="webp"
                             class="border-muted size-[15px] border"
                         />
                         <p
                             class="text-dimmed text-[15px] leading-none text-nowrap"
                         >
-                            <span>@</span>
-                            <span
-                                contenteditable="true"
-                                role="textbox"
-                                spellcheck="false"
-                                class="inline-block min-w-[1h] cursor-text pb-0.5 outline-none"
-                            >
-                                {{ props.data.userId }}
-                            </span>
+                            @{{ props.data.userId }}
                         </p>
                         <Icon
                             name="lucide:dot"
@@ -101,10 +71,7 @@ const props = defineProps<Props>()
                             class="text-dimmed -mx-0.5 pb-0.5"
                         />
                         <span
-                            contenteditable="true"
-                            role="textbox"
-                            spellcheck="false"
-                            class="text-dimmed inline-block min-w-[1ch] cursor-text pb-0.5 text-[15px] leading-none text-nowrap outline-none"
+                            class="text-dimmed pb-0.5 text-[15px] leading-none text-nowrap"
                         >
                             {{ props.data.time }}
                         </span>
@@ -117,18 +84,17 @@ const props = defineProps<Props>()
                     />
                 </div>
 
-                <UTextarea
-                    v-model="props.data.content"
-                    :placeholder="'Enter your post content...'"
-                    variant="none"
-                    autoresize
-                    :rows="1"
-                    spellcheck="false"
-                    :ui="{
-                        base: 'p-0 text-[15px] rounded-none text-toned',
-                    }"
-                    class="-mt-0.5"
-                />
+                <p class="text-toned text-[15px]">{{ props.data.content }}</p>
+
+                <template v-if="props.data.images?.length">
+                    <img
+                        v-for="(image, index) in props.data.images"
+                        :key="'image-' + index"
+                        :src="image"
+                        alt="Post Image"
+                        class="w-full rounded-lg object-cover"
+                    />
+                </template>
 
                 <div
                     class="text-dimmed flex w-full items-center justify-between gap-3 pt-1"
@@ -136,10 +102,7 @@ const props = defineProps<Props>()
                     <div class="flex items-center gap-1">
                         <Icon name="presocial:twitter-reply" size="18" />
                         <span
-                            contenteditable="true"
-                            role="textbox"
-                            spellcheck="false"
-                            class="inline-block min-w-[1ch] cursor-text pt-px text-[13px] leading-none text-nowrap outline-none"
+                            class="pt-px text-[13px] leading-none text-nowrap"
                         >
                             {{ props.data.reply }}
                         </span>
@@ -148,10 +111,7 @@ const props = defineProps<Props>()
                     <div class="flex items-center gap-1">
                         <Icon name="presocial:twitter-repost" size="18" />
                         <span
-                            contenteditable="true"
-                            role="textbox"
-                            spellcheck="false"
-                            class="inline-block min-w-[1ch] cursor-text pt-px text-[13px] leading-none text-nowrap outline-none"
+                            class="pt-px text-[13px] leading-none text-nowrap"
                         >
                             {{ props.data.repost }}
                         </span>
@@ -160,10 +120,7 @@ const props = defineProps<Props>()
                     <div class="flex items-center gap-1">
                         <Icon name="presocial:twitter-like" size="18" />
                         <span
-                            contenteditable="true"
-                            role="textbox"
-                            spellcheck="false"
-                            class="inline-block min-w-[1ch] cursor-text pt-px text-[13px] leading-none text-nowrap outline-none"
+                            class="pt-px text-[13px] leading-none text-nowrap"
                         >
                             {{ props.data.like }}
                         </span>
@@ -172,10 +129,7 @@ const props = defineProps<Props>()
                     <div class="flex items-center gap-1">
                         <Icon name="presocial:twitter-view" size="18" />
                         <span
-                            contenteditable="true"
-                            role="textbox"
-                            spellcheck="false"
-                            class="inline-block min-w-[1ch] cursor-text pt-px text-[13px] leading-none text-nowrap outline-none"
+                            class="pt-px text-[13px] leading-none text-nowrap"
                         >
                             {{ props.data.view }}
                         </span>

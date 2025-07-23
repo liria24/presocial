@@ -6,6 +6,7 @@ export interface Twitter {
     organizationAvatarUrl?: string
     time: string
     content: string
+    images?: string[]
     reply?: number
     repost?: number
     like?: number

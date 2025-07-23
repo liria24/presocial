@@ -2,6 +2,32 @@
 const { data: repo } = useFetch<{ repo: GithubRepo }>(
     'https://ungh.cc/repos/liria24/presocial'
 )
+
+const colorMode = useColorMode()
+
+const themeMenu = [
+    {
+        label: 'システム',
+        icon: 'lucide:monitor',
+        onSelect: () => {
+            colorMode.preference = 'system'
+        },
+    },
+    {
+        label: 'ライト',
+        icon: 'lucide:sun',
+        onSelect: () => {
+            colorMode.preference = 'light'
+        },
+    },
+    {
+        label: 'ダーク',
+        icon: 'lucide:moon',
+        onSelect: () => {
+            colorMode.preference = 'dark'
+        },
+    },
+]
 </script>
 
 <template>
@@ -89,21 +115,54 @@ const { data: repo } = useFetch<{ repo: GithubRepo }>(
                         </div>
                     </template>
                 </UPopover>
+
+                <div class="ml-1 flex items-center gap-1">
+                    <p class="text-dimmed text-sm leading-none text-nowrap">
+                        © 2025
+                    </p>
+                    <UButton
+                        to="https://liria.me"
+                        target="_blank"
+                        label="Liria"
+                        icon="presocial:liria"
+                        variant="link"
+                        size="sm"
+                        class="gap-1 p-0 pl-0.5 font-[Montserrat] text-sm font-semibold"
+                    />
+                </div>
             </div>
 
-            <div class="flex items-center gap-1">
-                <p class="text-dimmed text-sm leading-none text-nowrap">
-                    © 2025
-                </p>
-                <UButton
-                    to="https://liria.me"
-                    target="_blank"
-                    label="Liria"
-                    icon="presocial:liria"
-                    variant="link"
-                    size="sm"
-                    class="gap-1 p-0 pl-0.5 font-[Montserrat] text-sm font-semibold"
-                />
+            <div class="flex items-center gap-3">
+                <ClientOnly>
+                    <UDropdownMenu
+                        :items="themeMenu"
+                        :content="{
+                            align: 'center',
+                            side: 'bottom',
+                            sideOffset: 8,
+                        }"
+                    >
+                        <UTooltip text="テーマ" :delay-duration="50">
+                            <UButton
+                                :icon="
+                                    colorMode.value === 'dark'
+                                        ? 'lucide:moon'
+                                        : 'lucide:sun'
+                                "
+                                aria-label="テーマ"
+                                variant="ghost"
+                            />
+                        </UTooltip>
+                    </UDropdownMenu>
+
+                    <template #fallback>
+                        <UButton
+                            icon="lucide:palette"
+                            aria-label="テーマ"
+                            variant="ghost"
+                        />
+                    </template>
+                </ClientOnly>
             </div>
         </div>
     </footer>

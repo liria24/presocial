@@ -131,6 +131,9 @@ export default defineAppConfig({
             },
         },
         select: {
+            slots: {
+                base: 'cursor-pointer',
+            },
             compoundVariants: [
                 {
                     loading: true,

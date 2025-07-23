@@ -7,6 +7,11 @@
 
 :root {
     --ui-container: 64rem;
+    --color-zinc-900: oklch(18.3% 0.004 285.93);
+}
+
+.dark {
+    --ui-bg: var(--color-zinc-900);
 }
 
 html {

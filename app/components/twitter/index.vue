@@ -1,23 +1,17 @@
 <script setup lang="ts">
-import { USwitch } from '#components'
+interface Props {
+    timeline: boolean
+}
+const props = defineProps<Props>()
 
-const timeline = ref(false)
-const state = reactive<Twitter>({
-    username: 'User',
-    userId: 'user',
-    avatarUrl: '',
-    badge: undefined,
-    organizationAvatarUrl: '',
-    time: '24分',
-    content: '',
-    reply: 2,
-    repost: 3,
-    like: 10,
-    view: 1124,
-    repostedUsername: '',
-})
+const { state } = useTwitterStore()
 
 const badgeItems = ref([
+    {
+        label: 'None',
+        value: undefined,
+        icon: 'lucide:eye-off',
+    },
     {
         label: 'Blue',
         value: 'blue',
@@ -41,19 +35,17 @@ const icon = computed(
 </script>
 
 <template>
-    <div class="flex flex-col items-center gap-6">
-        <USwitch v-model="timeline" label="Show Timeline" />
-
+    <div class="group flex flex-col items-end gap-2">
         <div
             :class="
                 cn(
-                    'divide-muted flex w-full max-w-xl flex-col divide-y overflow-hidden rounded-xl',
-                    timeline && 'mask-t-from-60% mask-b-from-60%'
+                    'divide-muted flex w-full flex-col divide-y overflow-hidden rounded-xl',
+                    props.timeline ? 'mask-t-from-60% mask-b-from-60%' : 'mt-10'
                 )
             "
         >
             <TwitterPost
-                v-if="timeline"
+                v-if="props.timeline"
                 :data="{
                     username: 'Liria',
                     userId: 'liria_24',
@@ -67,9 +59,11 @@ const icon = computed(
                     repostedUsername: '',
                 }"
             />
-            <TwitterPost :data="state" />
+
+            <TwitterEditablePost :data="state" />
+
             <TwitterPost
-                v-if="timeline"
+                v-if="props.timeline"
                 :data="{
                     username: 'Presocial',
                     userId: 'pr3$0c1a/',
@@ -86,24 +80,58 @@ const icon = computed(
             />
         </div>
 
-        <div class="flex flex-wrap items-center gap-3">
+        <div
+            class="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100"
+        >
+            <!-- <UButton
+                icon="lucide:plus"
+                label="Media"
+                variant="soft"
+                size="sm"
+                class="rounded-full pr-3"
+            /> -->
+
             <USelect
                 v-model="state.badge"
                 :items="badgeItems"
                 :icon="icon"
-                :placeholder="'Select Badge'"
-                class="w-48"
-            />
-            <UInput
-                v-model="state.organizationAvatarUrl"
-                :placeholder="'Organization Avatar URL'"
+                :placeholder="'Badge'"
                 variant="soft"
+                size="sm"
+                class="min-w-28 rounded-full"
             />
-            <UInput
-                v-model="state.repostedUsername"
-                :placeholder="'Reposted Username'"
-                variant="soft"
-            />
+
+            <UPopover>
+                <UButton
+                    icon="lucide:building"
+                    variant="soft"
+                    size="sm"
+                    class="rounded-full"
+                />
+                <template #content>
+                    <UInput
+                        v-model="state.organizationAvatarUrl"
+                        :placeholder="'Organization Avatar URL'"
+                        variant="soft"
+                    />
+                </template>
+            </UPopover>
+
+            <UPopover>
+                <UButton
+                    icon="lucide:repeat-2"
+                    variant="soft"
+                    size="sm"
+                    class="rounded-full"
+                />
+                <template #content>
+                    <UInput
+                        v-model="state.repostedUsername"
+                        :placeholder="'Reposted Username'"
+                        variant="soft"
+                    />
+                </template>
+            </UPopover>
         </div>
     </div>
 </template>
