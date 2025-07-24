@@ -19,49 +19,54 @@ const initializeRepostedUsername = () => {
 
         <TwitterSettingsBadge />
 
-        <UButton
-            :icon="options.showContent ? 'lucide:pen-off' : 'lucide:pen'"
-            aria-label="Toggle content visibility"
-            variant="soft"
-            size="sm"
-            class="rounded-full"
-            @click="options.showContent = !options.showContent"
-        />
-
-        <TwitterSettingsOrgAvatar />
-
-        <UPopover
-            :content="{
-                align: 'end',
-            }"
-        >
+        <div class="flex items-center gap-3">
             <UButton
-                icon="lucide:repeat-2"
-                aria-label="Reposted Username"
+                :icon="options.showContent ? 'lucide:pen-off' : 'lucide:pen'"
+                aria-label="Toggle content visibility"
                 variant="soft"
                 size="sm"
                 class="rounded-full"
-                @click="initializeRepostedUsername"
+                @click="options.showContent = !options.showContent"
             />
-            <template #content>
-                <UInput
-                    v-model="state.repostedUsername"
-                    :placeholder="'Reposted Username'"
+
+            <TwitterSettingsOrgAvatar />
+
+            <UPopover
+                :content="{
+                    align: 'end',
+                }"
+            >
+                <UButton
+                    icon="lucide:repeat-2"
+                    aria-label="Reposted Username"
                     variant="soft"
-                    :ui="{ trailing: 'pe-1' }"
-                >
-                    <template v-if="state.repostedUsername?.length" #trailing>
-                        <UButton
-                            color="neutral"
-                            variant="ghost"
-                            size="sm"
-                            icon="lucide:x"
-                            aria-label="Clear input"
-                            @click="state.repostedUsername = ''"
-                        />
-                    </template>
-                </UInput>
-            </template>
-        </UPopover>
+                    size="sm"
+                    class="rounded-full"
+                    @click="initializeRepostedUsername"
+                />
+                <template #content>
+                    <UInput
+                        v-model="state.repostedUsername"
+                        :placeholder="'Reposted Username'"
+                        variant="soft"
+                        :ui="{ trailing: 'pe-1' }"
+                    >
+                        <template
+                            v-if="state.repostedUsername?.length"
+                            #trailing
+                        >
+                            <UButton
+                                color="neutral"
+                                variant="ghost"
+                                size="sm"
+                                icon="lucide:x"
+                                aria-label="Clear input"
+                                @click="state.repostedUsername = ''"
+                            />
+                        </template>
+                    </UInput>
+                </template>
+            </UPopover>
+        </div>
     </div>
 </template>
