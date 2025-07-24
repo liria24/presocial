@@ -1,1 +1,34 @@
-{}
+{
+    "site": {
+        "description": "X/Twitter のポストをプレビューするシンプルなツール"
+    },
+    "common": {
+        "system": "システム",
+        "light": "ライト",
+        "dark": "ダーク",
+        "language": "言語",
+        "backToHome": "ホームに戻る",
+        "media": "メディア",
+        "badge": "バッジ",
+        "none": "なし",
+        "blue": "ブルー",
+        "gold": "ゴールド",
+        "gray": "グレー",
+        "clearInput": "入力をクリア",
+        "imageUrl": "画像 URL",
+        "imageUrlPlaceholder": "画像の URL を入力...",
+        "localImage": "ローカル画像",
+        "localImageHint": "サーバーに保存されることはありません"
+    },
+    "twitter": {
+        "showTimeline": "タイムライン表示",
+        "postOnX": "X にポスト",
+        "postOnXWarning": "画像は実際には添付されません",
+        "toggleContentVisibility": "コンテンツの表示切替",
+        "organizationAvatar": "組織アイコン",
+        "repostedUsername": "リポストしたユーザー名",
+        "contentPlaceholder": "ポスト内容を入力...",
+        "postImage": "ポスト画像",
+        "reposted": "さんがリポスト"
+    }
+}

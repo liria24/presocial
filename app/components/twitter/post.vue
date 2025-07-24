@@ -13,21 +13,18 @@ const props = defineProps<Props>()
         >
             <Icon name="presocial:twitter-repost" size="16" />
             <span class="text-xs leading-none font-semibold">
-                {{ props.data.repostedUsername }}さんがリポスト
+                {{ props.data.repostedUsername + $t('twitter.reposted') }}
             </span>
         </div>
 
         <div class="flex items-start gap-3">
-            <img
-                v-if="props.data.avatarUrl?.length"
-                :src="props.data.avatarUrl"
+            <NuxtImg
+                :src="
+                    props.data.avatarUrl?.length
+                        ? props.data.avatarUrl
+                        : '/twitter-default.jpg'
+                "
                 :alt="props.data.username"
-                class="aspect-square size-10 rounded-full"
-            />
-            <img
-                v-else
-                src="/twitter-default.jpg"
-                alt="Default Avatar"
                 class="aspect-square size-10 rounded-full"
             />
 
@@ -57,7 +54,7 @@ const props = defineProps<Props>()
                         <img
                             v-if="props.data.organizationAvatarUrl?.length"
                             :src="props.data.organizationAvatarUrl"
-                            alt="Organization Avatar"
+                            :alt="$t('twitter.organizationAvatar')"
                             class="border-muted size-[15px] border"
                         />
                         <p
@@ -112,7 +109,7 @@ const props = defineProps<Props>()
                         >
                             <img
                                 :src="image"
-                                alt="Post Image"
+                                :alt="$t('twitter.postImage')"
                                 class="size-full object-cover"
                             />
                         </div>

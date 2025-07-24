@@ -3,6 +3,7 @@ const { state, options } = useTwitterStore()
 
 const avatarUrlPresets = [
     '/twitter-default.jpg',
+    '/maskable-icon-512x512.png',
     'https://avatars.githubusercontent.com/u/172270941?s=200&v=4',
 ]
 
@@ -41,7 +42,7 @@ const removeImage = (index: number) => {
         >
             <Icon name="presocial:twitter-repost" size="16" />
             <span class="text-xs leading-none font-semibold">
-                {{ state.repostedUsername }} reposted
+                {{ state.repostedUsername + $t('twitter.reposted') }}
             </span>
         </div>
 
@@ -82,10 +83,10 @@ const removeImage = (index: number) => {
 
                         <USeparator label="OR" :ui="{ label: 'text-muted' }" />
 
-                        <UFormField label="Image URL">
+                        <UFormField :label="$t('common.imageUrl')">
                             <UInput
                                 v-model="state.avatarUrl"
-                                :placeholder="'Enter avatar image URL...'"
+                                :placeholder="$t('common.imageUrlPlaceholder')"
                                 variant="soft"
                                 :ui="{ trailing: 'pe-1' }"
                                 class="w-full"
@@ -99,7 +100,7 @@ const removeImage = (index: number) => {
                                         variant="ghost"
                                         size="sm"
                                         icon="lucide:x"
-                                        aria-label="Clear input"
+                                        :aria-label="$t('common.clearInput')"
                                         @click="state.avatarUrl = ''"
                                     />
                                 </template>
@@ -109,8 +110,9 @@ const removeImage = (index: number) => {
                         <USeparator label="OR" :ui="{ label: 'text-muted' }" />
 
                         <UFormField
-                            label="Local Image"
-                            hint="Won't be uploaded to any servers."
+                            :label="$t('common.localImage')"
+                            :hint="$t('common.localImageHint')"
+                            :ui="{ hint: 'text-xs' }"
                         >
                             <UInput
                                 type="file"
@@ -153,7 +155,7 @@ const removeImage = (index: number) => {
                         <img
                             v-if="state.organizationAvatarUrl?.length"
                             :src="state.organizationAvatarUrl"
-                            alt="Organization Avatar"
+                            :alt="$t('twitter.organizationAvatar')"
                             class="border-muted size-[15px] border"
                         />
                         <p
@@ -196,7 +198,7 @@ const removeImage = (index: number) => {
                 <UTextarea
                     v-if="options.showContent"
                     v-model="state.content"
-                    :placeholder="'Enter your post content...'"
+                    :placeholder="$t('twitter.contentPlaceholder')"
                     variant="none"
                     autoresize
                     :rows="1"
@@ -218,31 +220,26 @@ const removeImage = (index: number) => {
                             )
                         "
                     >
-                        <div
+                        <button
                             v-for="(image, index) in state.images"
                             :key="index"
+                            tyepe="button"
                             :class="
                                 cn(
-                                    'group/image relative aspect-auto w-full',
+                                    'aspect-auto w-full cursor-pointer transition-opacity hover:opacity-60',
                                     state.images?.length === 3 &&
                                         'not-first:aspect-video first:row-span-2 first:aspect-auto',
                                     state.images?.length === 4 && 'aspect-video'
                                 )
                             "
+                            @click="removeImage(index)"
                         >
-                            <img
+                            <NuxtImg
                                 :src="image"
-                                alt="Post Image"
+                                :alt="$t('twitter.postImage')"
                                 class="size-full object-cover"
                             />
-                            <UButton
-                                icon="lucide:x"
-                                color="neutral"
-                                variant="soft"
-                                class="absolute top-2 right-2 rounded-full opacity-0 transition-opacity group-hover/image:opacity-100"
-                                @click="removeImage(index)"
-                            />
-                        </div>
+                        </button>
                     </div>
                 </template>
 

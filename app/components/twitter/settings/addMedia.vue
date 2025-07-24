@@ -25,7 +25,7 @@ onChange((files) => {
 <template>
     <UButton
         icon="lucide:plus"
-        label="Media"
+        :label="$t('common.media')"
         variant="soft"
         size="sm"
         class="rounded-full pr-3"

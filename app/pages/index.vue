@@ -24,7 +24,7 @@ useSchemaOrg([
                 Presocial
             </h1>
             <p class="text-dimmed text-center text-sm">
-                Simple tool to preview X/Twitter posts.
+                {{ $t('site.description') }}
             </p>
         </div>
 

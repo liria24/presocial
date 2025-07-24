@@ -1,24 +1,25 @@
 <script setup lang="ts">
+const { t } = useI18n()
 const { state } = useTwitterStore()
 
 const badgeItems = ref([
     {
-        label: 'None',
+        label: t('common.none'),
         value: undefined,
         icon: 'lucide:eye-off',
     },
     {
-        label: 'Blue',
+        label: t('common.blue'),
         value: 'blue',
         icon: 'presocial:twitter-badge-blue',
     },
     {
-        label: 'Gold',
+        label: t('common.gold'),
         value: 'gold',
         icon: 'presocial:twitter-badge-gold',
     },
     {
-        label: 'Gray',
+        label: t('common.gray'),
         value: 'gray',
         icon: 'presocial:twitter-badge-gray',
     },
@@ -34,7 +35,7 @@ const icon = computed(
         v-model="state.badge"
         :items="badgeItems"
         :icon="icon"
-        :placeholder="'Badge'"
+        :placeholder="t('common.badge')"
         variant="soft"
         size="sm"
         class="min-w-28 rounded-full"

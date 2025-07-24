@@ -35,8 +35,7 @@ const { state, options } = useTwitterStore()
             :data="{
                 username: 'Presocial',
                 userId: 'pr3$0c1a/',
-                avatarUrl:
-                    'https://avatars.githubusercontent.com/u/172270941?s=200&v=4',
+                avatarUrl: '/maskable-icon-512x512.png',
                 time: '1時間',
                 content: 'We are dropped Presocial web app today!',
                 reply: 3,

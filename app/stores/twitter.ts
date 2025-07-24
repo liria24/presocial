@@ -1,11 +1,26 @@
+const defaults = {
+    twitter: {
+        en: {
+            username: 'User',
+            time: '24m',
+        },
+        ja: {
+            username: 'ユーザー',
+            time: '24分',
+        },
+    },
+}
+
 export const useTwitterStore = defineStore('twitterStore', () => {
+    const { locale } = useI18n()
+
     const state = ref<Twitter>({
-        username: 'User',
+        username: defaults.twitter[locale.value].username,
         userId: 'user',
         avatarUrl: '',
         badge: undefined,
         organizationAvatarUrl: undefined,
-        time: '24m',
+        time: defaults.twitter[locale.value].time,
         content: '',
         images: [],
         reply: 2,

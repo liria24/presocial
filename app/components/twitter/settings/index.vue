@@ -22,7 +22,7 @@ const initializeRepostedUsername = () => {
         <div class="flex items-center gap-3">
             <UButton
                 :icon="options.showContent ? 'lucide:pen-off' : 'lucide:pen'"
-                aria-label="Toggle content visibility"
+                :aria-label="$t('twitter.toggleContentVisibility')"
                 variant="soft"
                 size="sm"
                 class="rounded-full"
@@ -38,7 +38,7 @@ const initializeRepostedUsername = () => {
             >
                 <UButton
                     icon="lucide:repeat-2"
-                    aria-label="Reposted Username"
+                    :aria-label="$t('twitter.repostedUsername')"
                     variant="soft"
                     size="sm"
                     class="rounded-full"
@@ -47,7 +47,7 @@ const initializeRepostedUsername = () => {
                 <template #content>
                     <UInput
                         v-model="state.repostedUsername"
-                        :placeholder="'Reposted Username'"
+                        :placeholder="$t('twitter.repostedUsername')"
                         variant="soft"
                         :ui="{ trailing: 'pe-1' }"
                     >
@@ -60,7 +60,7 @@ const initializeRepostedUsername = () => {
                                 variant="ghost"
                                 size="sm"
                                 icon="lucide:x"
-                                aria-label="Clear input"
+                                :aria-label="$t('common.clearInput')"
                                 @click="state.repostedUsername = ''"
                             />
                         </template>

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+const { locales } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
 const { state } = useSiteStore()
 
 const { data: repo } = useFetch<{ repo: GithubRepo }>(
@@ -7,29 +9,16 @@ const { data: repo } = useFetch<{ repo: GithubRepo }>(
 
 const colorMode = useColorMode()
 
-const themeMenu = [
-    {
-        label: 'システム',
-        icon: 'lucide:monitor',
-        onSelect: () => {
-            colorMode.preference = 'system'
-        },
-    },
-    {
-        label: 'ライト',
-        icon: 'lucide:sun',
-        onSelect: () => {
-            colorMode.preference = 'light'
-        },
-    },
-    {
-        label: 'ダーク',
-        icon: 'lucide:moon',
-        onSelect: () => {
-            colorMode.preference = 'dark'
-        },
-    },
-]
+const languageIcons = {
+    en: 'twemoji:flag-united-states',
+    ja: 'twemoji:flag-japan',
+}
+
+const languageMenu = locales.value.map((locale) => ({
+    label: locale.name,
+    icon: languageIcons[locale.code],
+    onSelect: () => navigateTo(switchLocalePath(locale.code)),
+}))
 
 const builtTools = [
     {
@@ -52,7 +41,7 @@ const builtTools = [
 
 <template>
     <footer
-        class="flex w-full items-end justify-between gap-4 pb-3 sm:items-center"
+        class="mt-12 flex w-full items-end justify-between gap-4 pb-3 sm:items-center"
     >
         <div class="flex flex-col gap-x-6 gap-y-2 sm:flex-row sm:items-center">
             <div class="flex items-center gap-1.5">
@@ -170,6 +159,14 @@ const builtTools = [
 
         <div class="flex items-center gap-1">
             <UButton
+                :to="$localePath('/roadmap')"
+                label="Roadmap"
+                variant="link"
+                size="sm"
+                class="text-dimmed mr-1"
+            />
+
+            <UButton
                 icon="lucide:maximize-2"
                 aria-label="ヒーローセクションの表示切替"
                 variant="ghost"
@@ -177,9 +174,47 @@ const builtTools = [
                 @click="state.showHero = !state.showHero"
             />
 
+            <UDropdownMenu
+                :items="languageMenu"
+                :content="{
+                    align: 'end',
+                    side: 'top',
+                    sideOffset: 8,
+                }"
+            >
+                <UButton
+                    icon="lucide:languages"
+                    :aria-label="$t('common.language')"
+                    variant="ghost"
+                    size="sm"
+                />
+            </UDropdownMenu>
+
             <ClientOnly>
                 <UDropdownMenu
-                    :items="themeMenu"
+                    :items="[
+                        {
+                            label: $t('common.system'),
+                            icon: 'lucide:monitor',
+                            onSelect: () => {
+                                colorMode.preference = 'system'
+                            },
+                        },
+                        {
+                            label: $t('common.light'),
+                            icon: 'lucide:sun',
+                            onSelect: () => {
+                                colorMode.preference = 'light'
+                            },
+                        },
+                        {
+                            label: $t('common.dark'),
+                            icon: 'lucide:moon',
+                            onSelect: () => {
+                                colorMode.preference = 'dark'
+                            },
+                        },
+                    ]"
                     :content="{
                         align: 'end',
                         side: 'top',

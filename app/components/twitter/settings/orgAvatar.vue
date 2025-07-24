@@ -2,6 +2,7 @@
 const { state } = useTwitterStore()
 
 const avatarUrlPresets = [
+    '/maskable-icon-512x512.png',
     'https://avatars.githubusercontent.com/u/172270941?s=200&v=4',
 ]
 
@@ -39,7 +40,7 @@ const handleFileChange = (event: Event) => {
     >
         <UButton
             icon="lucide:building"
-            aria-label="Organization Avatar"
+            :aria-label="$t('twitter.organizationAvatar')"
             variant="soft"
             size="sm"
             class="rounded-full"
@@ -68,10 +69,10 @@ const handleFileChange = (event: Event) => {
 
                 <USeparator label="OR" :ui="{ label: 'text-muted' }" />
 
-                <UFormField label="Image URL">
+                <UFormField :label="$t('common.imageUrl')">
                     <UInput
                         v-model="state.organizationAvatarUrl"
-                        :placeholder="'Organization Avatar URL'"
+                        :placeholder="$t('common.imageUrlPlaceholder')"
                         variant="soft"
                         :ui="{ trailing: 'pe-1' }"
                         class="w-full"
@@ -85,7 +86,7 @@ const handleFileChange = (event: Event) => {
                                 variant="ghost"
                                 size="sm"
                                 icon="lucide:x"
-                                aria-label="Clear input"
+                                :aria-label="$t('common.clearInput')"
                                 @click="state.organizationAvatarUrl = ''"
                             />
                         </template>
@@ -93,8 +94,9 @@ const handleFileChange = (event: Event) => {
                 </UFormField>
 
                 <UFormField
-                    label="Local Image"
-                    hint="Won't be uploaded to any servers."
+                    :label="$t('common.localImage')"
+                    :hint="$t('common.localImageHint')"
+                    :ui="{ hint: 'text-xs' }"
                 >
                     <UInput
                         type="file"

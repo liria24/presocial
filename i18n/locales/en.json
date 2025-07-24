@@ -1,1 +1,34 @@
-{}
+{
+    "site": {
+        "description": "Simple tool to preview X/Twitter posts."
+    },
+    "common": {
+        "system": "System",
+        "light": "Light",
+        "dark": "Dark",
+        "language": "Language",
+        "backToHome": "Back to Home",
+        "media": "Media",
+        "badge": "Badge",
+        "none": "None",
+        "blue": "Blue",
+        "gold": "Gold",
+        "gray": "Gray",
+        "clearInput": "Clear input",
+        "imageUrl": "Image URL",
+        "imageUrlPlaceholder": "Enter image URL...",
+        "localImage": "Local Image",
+        "localImageHint": "Won't be uploaded to any servers."
+    },
+    "twitter": {
+        "showTimeline": "Show Timeline",
+        "postOnX": "Post on X",
+        "postOnXWarning": "The images are not attached.",
+        "toggleContentVisibility": "Toggle content visibility",
+        "organizationAvatar": "Organization Avatar",
+        "repostedUsername": "Reposted Username",
+        "contentPlaceholder": "Enter post content...",
+        "postImage": "Post Image",
+        "reposted": " reposted"
+    }
+}

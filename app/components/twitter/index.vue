@@ -7,7 +7,7 @@ const { state, options } = useTwitterStore()
         <div class="flex items-center gap-4">
             <USwitch
                 v-model="options.timeline"
-                label="Show Timeline"
+                :label="$t('twitter.showTimeline')"
                 :ui="{ label: 'text-muted' }"
             />
             <div class="group/post relative">
@@ -15,15 +15,15 @@ const { state, options } = useTwitterStore()
                     :to="`https://x.com/intent/post?text=${encodeURIComponent(state.content)}`"
                     target="_blank"
                     icon="lucide:send"
-                    label="Post on X"
+                    :label="$t('twitter.postOnX')"
                     variant="soft"
                     :ui="{ leadingIcon: 'size-4' }"
-                    class="gap-2 rounded-full pr-4 pl-3"
+                    class="gap-2 rounded-full px-3"
                 />
                 <span
                     class="text-dimmed absolute -bottom-4 left-1.5 text-xs leading-none text-nowrap opacity-0 transition-opacity group-hover/post:opacity-100"
                 >
-                    The images are not attached.
+                    {{ $t('twitter.postOnXWarning') }}
                 </span>
             </div>
         </div>
