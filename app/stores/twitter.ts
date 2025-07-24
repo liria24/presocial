@@ -4,7 +4,7 @@ export const useTwitterStore = defineStore('twitterStore', () => {
         userId: 'user',
         avatarUrl: '',
         badge: undefined,
-        organizationAvatarUrl: '',
+        organizationAvatarUrl: undefined,
         time: '24m',
         content: '',
         images: [],
@@ -15,5 +15,11 @@ export const useTwitterStore = defineStore('twitterStore', () => {
         repostedUsername: '',
     })
 
-    return { state }
+    const options = ref<TwitterOptions>({
+        timeline: false,
+        showContent: true,
+        theme: 'light',
+    })
+
+    return { state, options }
 })

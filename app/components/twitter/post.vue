@@ -8,7 +8,7 @@ const props = defineProps<Props>()
 <template>
     <div class="flex min-h-12 flex-col gap-1 bg-black p-3.5">
         <div
-            v-if="props.data.repostedUsername.length"
+            v-if="props.data.repostedUsername?.length"
             class="text-muted flex items-center gap-2 pl-6"
         >
             <Icon name="presocial:twitter-repost" size="16" />

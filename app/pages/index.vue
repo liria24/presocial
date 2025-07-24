@@ -3,14 +3,13 @@ defineSeo({
     type: 'website',
     title: 'Presocial',
     titleTemplate: '%s',
-    description: 'Free web app to preview X (Twitter) posts before sharing.',
+    description: 'Simple tool to preview X/Twitter posts.',
     // image: 'https://presocial.vercel.app/ogp_2.png',
 })
 useSchemaOrg([
     defineWebSite({
         name: 'Presocial',
-        description:
-            'Free web app to preview X (Twitter) posts before sharing.',
+        description: 'Simple tool to preview X/Twitter posts.',
         inLanguage: 'ja-JP',
     }),
 ])
@@ -27,6 +26,6 @@ useSchemaOrg([
             </p>
         </div>
 
-        <SocialPreview />
+        <Twitter />
     </div>
 </template>

@@ -3,7 +3,7 @@ import { defineOrganization } from 'nuxt-schema-org/schema'
 
 const baseUrl = import.meta.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 const title = 'Presocial'
-const description = 'Free web app to preview X (Twitter) posts before sharing.'
+const description = 'Simple tool to preview X/Twitter posts.'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({

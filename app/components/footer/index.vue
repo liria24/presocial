@@ -92,7 +92,7 @@ const builtTools = [
                 <p
                     class="text-dimmed text-sm leading-none font-light text-nowrap"
                 >
-                    It's open source on
+                    opened source on
                 </p>
                 <UPopover mode="hover" :open-delay="100">
                     <UButton

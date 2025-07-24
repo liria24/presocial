@@ -1,56 +1,35 @@
 <script setup lang="ts">
-interface Props {
-    timeline: boolean
-    showContent?: boolean
-}
-const props = defineProps<Props>()
-
-const { state } = useTwitterStore()
+const { state, options } = useTwitterStore()
 </script>
 
 <template>
-    <div
-        :class="
-            cn(
-                'divide-muted flex w-full flex-col divide-y overflow-hidden rounded-xl',
-                props.timeline && 'mask-t-from-60% mask-b-from-60%',
-                !props.timeline && !state.images?.length && 'mt-10'
-            )
-        "
-    >
-        <TwitterPost
-            v-if="props.timeline"
-            :data="{
-                username: 'Liria',
-                userId: 'liria_24',
-                avatarUrl:
-                    'https://avatars.githubusercontent.com/u/172270941?s=200&v=4',
-                time: '1分',
-                content:
-                    'Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet consectetur adipiscing elit quisque faucibus.',
-                like: 8,
-                view: 84,
-                repostedUsername: '',
-            }"
-        />
+    <div class="flex w-full flex-col items-center gap-8">
+        <div class="flex items-center gap-4">
+            <USwitch
+                v-model="options.timeline"
+                label="Show Timeline"
+                :ui="{ label: 'text-muted' }"
+            />
+            <div class="group/post relative">
+                <UButton
+                    :to="`https://x.com/intent/post?text=${encodeURIComponent(state.content)}`"
+                    target="_blank"
+                    icon="lucide:send"
+                    label="Post on X"
+                    variant="soft"
+                    :ui="{ leadingIcon: 'size-4' }"
+                    class="gap-2 rounded-full pr-4 pl-3"
+                />
+                <span
+                    class="text-dimmed absolute -bottom-4 left-1.5 text-xs leading-none text-nowrap opacity-0 transition-opacity group-hover/post:opacity-100"
+                >
+                    The images are not attached.
+                </span>
+            </div>
+        </div>
 
-        <TwitterEditablePost :data="state" :show-content="props.showContent" />
+        <TwitterSettings />
 
-        <TwitterPost
-            v-if="props.timeline"
-            :data="{
-                username: 'Presocial',
-                userId: 'pr3$0c1a/',
-                avatarUrl:
-                    'https://avatars.githubusercontent.com/u/172270941?s=200&v=4',
-                time: '1時間',
-                content: 'We are dropped Presocial web app today!',
-                reply: 3,
-                repost: 7,
-                like: 15,
-                view: 200,
-                repostedUsername: '',
-            }"
-        />
+        <TwitterTimeline class="mt-4 w-full max-w-xl" />
     </div>
 </template>
