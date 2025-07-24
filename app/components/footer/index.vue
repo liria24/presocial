@@ -49,9 +49,11 @@ const builtTools = [
 </script>
 
 <template>
-    <footer class="flex w-full items-center justify-between gap-4 pb-3">
-        <div class="flex items-center gap-6">
-            <div class="ml-1 flex items-center gap-1.5">
+    <footer
+        class="flex w-full items-end justify-between gap-4 pb-3 sm:items-center"
+    >
+        <div class="flex flex-col gap-x-6 gap-y-2 sm:flex-row sm:items-center">
+            <div class="flex items-center gap-1.5">
                 <p class="text-dimmed text-sm leading-none text-nowrap">
                     © 2025
                 </p>
@@ -169,22 +171,20 @@ const builtTools = [
                 <UDropdownMenu
                     :items="themeMenu"
                     :content="{
-                        align: 'center',
-                        side: 'bottom',
+                        align: 'end',
+                        side: 'top',
                         sideOffset: 8,
                     }"
                 >
-                    <UTooltip text="テーマ" :delay-duration="50">
-                        <UButton
-                            :icon="
-                                colorMode.value === 'dark'
-                                    ? 'lucide:moon'
-                                    : 'lucide:sun'
-                            "
-                            aria-label="テーマ"
-                            variant="ghost"
-                        />
-                    </UTooltip>
+                    <UButton
+                        :icon="
+                            colorMode.value === 'dark'
+                                ? 'lucide:moon'
+                                : 'lucide:sun'
+                        "
+                        aria-label="テーマ"
+                        variant="ghost"
+                    />
                 </UDropdownMenu>
 
                 <template #fallback>
