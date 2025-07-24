@@ -19,10 +19,12 @@ export default defineNuxtConfig({
         '@nuxtjs/i18n',
         '@nuxtjs/robots',
         '@pinia/nuxt',
+        '@vite-pwa/nuxt',
         '@vueuse/nuxt',
         'nuxt-link-checker',
         'nuxt-schema-org',
         'nuxt-seo-utils',
+        'pinia-plugin-persistedstate/nuxt',
     ],
 
     plugins: [{ src: '~/plugins/axe.client.ts', mode: 'client' }],
@@ -59,7 +61,6 @@ export default defineNuxtConfig({
                     name: 'viewport',
                     content: 'width=device-width, initial-scale=1',
                 },
-                { name: 'icon', content: '/favicon.ico' },
                 { property: 'og:site_name', content: title },
                 { property: 'og:type', content: 'website' },
                 { property: 'og:url', content: 'https://presocial.vercel.app' },
@@ -69,6 +70,14 @@ export default defineNuxtConfig({
                 { property: 'og:description', content: description },
                 { name: 'twitter:site', content: '@liria_24' },
                 { name: 'twitter:card', content: 'summary_large_image' },
+                { name: 'theme-color', content: '#DDDDDD' },
+            ],
+            link: [
+                { rel: 'icon', href: `/favicon.ico`, sizes: '48x48' },
+                {
+                    rel: 'apple-touch-icon',
+                    href: `/apple-touch-icon-180x180.png`,
+                },
             ],
         },
     },
@@ -125,6 +134,50 @@ export default defineNuxtConfig({
             ],
             scan: true,
             includeCustomCollections: true,
+        },
+    },
+
+    pwa: {
+        registerType: 'autoUpdate',
+        manifest: {
+            name: 'Presocial',
+            description: 'Simple tool to preview X/Twitter posts.',
+            theme_color: '#DDDDDD',
+            lang: 'en',
+            short_name: 'Presocial',
+            start_url: '/',
+            display: 'standalone',
+            background_color: '#000000',
+            icons: [
+                {
+                    src: 'pwa-64x64.png',
+                    sizes: '64x64',
+                    type: 'image/png',
+                },
+                {
+                    src: 'pwa-192x192.png',
+                    sizes: '192x192',
+                    type: 'image/png',
+                },
+                {
+                    src: 'pwa-512x512.png',
+                    sizes: '512x512',
+                    type: 'image/png',
+                },
+                {
+                    src: 'maskable-icon-512x512.png',
+                    sizes: '512x512',
+                    type: 'image/png',
+                    purpose: 'maskable',
+                },
+            ],
+        },
+        workbox: {
+            navigateFallback: null,
+        },
+        devOptions: {
+            enabled: true,
+            type: 'module',
         },
     },
 

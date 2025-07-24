@@ -127,6 +127,7 @@ const removeImage = (index: number) => {
                 <div class="flex items-center gap-1">
                     <div class="flex grow items-center gap-1">
                         <span
+                            aria-label="Username"
                             contenteditable="true"
                             role="textbox"
                             spellcheck="false"
@@ -160,6 +161,7 @@ const removeImage = (index: number) => {
                         >
                             <span>@</span>
                             <span
+                                aria-label="User ID"
                                 contenteditable="true"
                                 role="textbox"
                                 spellcheck="false"
@@ -174,6 +176,7 @@ const removeImage = (index: number) => {
                             class="text-dimmed -mx-0.5 pb-0.5"
                         />
                         <span
+                            aria-label="Time"
                             contenteditable="true"
                             role="textbox"
                             spellcheck="false"
@@ -249,6 +252,7 @@ const removeImage = (index: number) => {
                     <div class="flex items-center gap-1">
                         <Icon name="presocial:twitter-reply" size="18" />
                         <span
+                            aria-label="Replies"
                             contenteditable="true"
                             role="textbox"
                             spellcheck="false"
@@ -261,6 +265,7 @@ const removeImage = (index: number) => {
                     <div class="flex items-center gap-1">
                         <Icon name="presocial:twitter-repost" size="18" />
                         <span
+                            aria-label="Reposts"
                             contenteditable="true"
                             role="textbox"
                             spellcheck="false"
@@ -273,6 +278,7 @@ const removeImage = (index: number) => {
                     <div class="flex items-center gap-1">
                         <Icon name="presocial:twitter-like" size="18" />
                         <span
+                            aria-label="Likes"
                             contenteditable="true"
                             role="textbox"
                             spellcheck="false"
@@ -285,6 +291,7 @@ const removeImage = (index: number) => {
                     <div class="flex items-center gap-1">
                         <Icon name="presocial:twitter-view" size="18" />
                         <span
+                            aria-label="Views"
                             contenteditable="true"
                             role="textbox"
                             spellcheck="false"

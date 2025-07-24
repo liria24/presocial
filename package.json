@@ -9,7 +9,8 @@
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
-        "changelogen": "bunx changelogen --hideAuthorEmail"
+        "changelogen": "bunx changelogen --hideAuthorEmail",
+        "generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/favicon.svg"
     },
     "dependencies": {
         "@nuxt/fonts": "0.11.4",
@@ -27,6 +28,7 @@
         "nuxt-schema-org": "5.0.6",
         "nuxt-seo-utils": "7.0.14",
         "pinia": "^3.0.3",
+        "pinia-plugin-persistedstate": "^4.4.1",
         "tailwind-merge": "^3.3.1",
         "tailwindcss": "^4.1.11",
         "vue": "^3.5.18",
@@ -43,6 +45,8 @@
         "@types/node": "^24.1.0",
         "@typescript-eslint/eslint-plugin": "^8.38.0",
         "@typescript-eslint/parser": "^8.38.0",
+        "@vite-pwa/assets-generator": "^1.0.0",
+        "@vite-pwa/nuxt": "^1.0.4",
         "@vueuse/nuxt": "^13.5.0",
         "axe-core": "^4.10.3",
         "eslint": "^9.31.0",

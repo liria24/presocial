@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+const { state } = useSiteStore()
+
 const { data: repo } = useFetch<{ repo: GithubRepo }>(
     'https://ungh.cc/repos/liria24/presocial'
 )
@@ -166,7 +168,15 @@ const builtTools = [
             </div>
         </div>
 
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-1">
+            <UButton
+                icon="lucide:maximize-2"
+                aria-label="ヒーローセクションの表示切替"
+                variant="ghost"
+                size="sm"
+                @click="state.showHero = !state.showHero"
+            />
+
             <ClientOnly>
                 <UDropdownMenu
                     :items="themeMenu"
@@ -184,6 +194,7 @@ const builtTools = [
                         "
                         aria-label="テーマ"
                         variant="ghost"
+                        size="sm"
                     />
                 </UDropdownMenu>
 
@@ -192,6 +203,7 @@ const builtTools = [
                         icon="lucide:palette"
                         aria-label="テーマ"
                         variant="ghost"
+                        size="sm"
                     />
                 </template>
             </ClientOnly>
