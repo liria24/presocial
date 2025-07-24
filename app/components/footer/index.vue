@@ -28,33 +28,79 @@ const themeMenu = [
         },
     },
 ]
+
+const builtTools = [
+    {
+        name: 'Vercel',
+        icon: 'simple-icons:vercel',
+        url: 'https://vercel.com',
+    },
+    {
+        name: 'Nuxt',
+        icon: 'simple-icons:nuxt',
+        url: 'https://nuxt.com',
+    },
+    {
+        name: 'Tailwind CSS',
+        icon: 'simple-icons:tailwindcss',
+        url: 'https://tailwindcss.com',
+    },
+]
 </script>
 
 <template>
-    <footer class="flex flex-col gap-4 self-stretch pb-3">
-        <div
-            class="flex w-full flex-col items-center justify-between gap-x-4 gap-y-2 pb-0 sm:flex-row"
-        >
-            <div class="flex items-center gap-0.5">
+    <footer class="flex w-full items-center justify-between gap-4 pb-3">
+        <div class="flex items-center gap-6">
+            <div class="ml-1 flex items-center gap-1.5">
+                <p class="text-dimmed text-sm leading-none text-nowrap">
+                    © 2025
+                </p>
                 <UButton
-                    to="https://x.com/liria_24"
+                    to="https://liria.me"
                     target="_blank"
-                    icon="simple-icons:x"
-                    aria-label="X"
-                    variant="ghost"
+                    label="Liria"
+                    trailing-icon="presocial:liria"
+                    variant="link"
                     size="sm"
-                    class="p-2"
+                    :ui="{ trailingIcon: 'size-3.5' }"
+                    class="text-dimmed gap-1 p-0 text-sm font-bold"
                 />
+            </div>
 
+            <div class="flex items-center gap-2">
+                <p
+                    class="text-dimmed text-sm leading-none font-light text-nowrap"
+                >
+                    built on
+                </p>
+                <UButton
+                    v-for="tool in builtTools"
+                    :key="tool.name"
+                    :to="tool.url"
+                    target="_blank"
+                    :aria-label="tool.name"
+                    :icon="tool.icon"
+                    size="sm"
+                    variant="link"
+                    class="text-dimmed p-0"
+                />
+            </div>
+
+            <div class="flex items-center gap-2">
+                <p
+                    class="text-dimmed text-sm leading-none font-light text-nowrap"
+                >
+                    It's open source on
+                </p>
                 <UPopover mode="hover" :open-delay="100">
                     <UButton
                         to="https://github.com/liria24/presocial"
                         target="_blank"
                         icon="simple-icons:github"
                         aria-label="GitHub"
-                        variant="ghost"
+                        variant="link"
                         size="sm"
-                        class="p-2"
+                        class="text-dimmed p-0"
                     />
 
                     <template #content>
@@ -115,55 +161,40 @@ const themeMenu = [
                         </div>
                     </template>
                 </UPopover>
-
-                <div class="ml-1 flex items-center gap-1">
-                    <p class="text-dimmed text-sm leading-none text-nowrap">
-                        © 2025
-                    </p>
-                    <UButton
-                        to="https://liria.me"
-                        target="_blank"
-                        label="Liria"
-                        icon="presocial:liria"
-                        variant="link"
-                        size="sm"
-                        class="gap-1 p-0 pl-0.5 font-[Montserrat] text-sm font-semibold"
-                    />
-                </div>
             </div>
+        </div>
 
-            <div class="flex items-center gap-3">
-                <ClientOnly>
-                    <UDropdownMenu
-                        :items="themeMenu"
-                        :content="{
-                            align: 'center',
-                            side: 'bottom',
-                            sideOffset: 8,
-                        }"
-                    >
-                        <UTooltip text="テーマ" :delay-duration="50">
-                            <UButton
-                                :icon="
-                                    colorMode.value === 'dark'
-                                        ? 'lucide:moon'
-                                        : 'lucide:sun'
-                                "
-                                aria-label="テーマ"
-                                variant="ghost"
-                            />
-                        </UTooltip>
-                    </UDropdownMenu>
-
-                    <template #fallback>
+        <div class="flex items-center gap-3">
+            <ClientOnly>
+                <UDropdownMenu
+                    :items="themeMenu"
+                    :content="{
+                        align: 'center',
+                        side: 'bottom',
+                        sideOffset: 8,
+                    }"
+                >
+                    <UTooltip text="テーマ" :delay-duration="50">
                         <UButton
-                            icon="lucide:palette"
+                            :icon="
+                                colorMode.value === 'dark'
+                                    ? 'lucide:moon'
+                                    : 'lucide:sun'
+                            "
                             aria-label="テーマ"
                             variant="ghost"
                         />
-                    </template>
-                </ClientOnly>
-            </div>
+                    </UTooltip>
+                </UDropdownMenu>
+
+                <template #fallback>
+                    <UButton
+                        icon="lucide:palette"
+                        aria-label="テーマ"
+                        variant="ghost"
+                    />
+                </template>
+            </ClientOnly>
         </div>
     </footer>
 </template>

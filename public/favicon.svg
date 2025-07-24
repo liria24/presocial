@@ -1,0 +1,16 @@
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+    <style>
+        ellipse {
+            fill:black;
+        }
+        @media (prefers-color-scheme: dark) {
+            ellipse {
+                fill:white;
+            }
+        }
+    </style>
+    <g>
+        <ellipse cx="10" cy="22" rx="7" ry="7" />
+        <ellipse cx="22" cy="10" rx="7" ry="7" transform="matrix(1 0 0 1 0 0)"/>
+    </g>
+</svg>

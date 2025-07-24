@@ -172,6 +172,10 @@ export default defineAppConfig({
             ],
         },
         switch: {
+            slots: {
+                base: 'cursor-pointer',
+                label: 'cursor-pointer',
+            },
             variants: {
                 loading: {
                     true: {

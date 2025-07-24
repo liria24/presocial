@@ -1,10 +1,18 @@
 <script setup lang="ts">
 interface Props {
     data: Twitter
+    showContent?: boolean
 }
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+    showContent: true,
+})
 
 const { state } = useTwitterStore()
+
+const avatarUrlPresets = [
+    '/twitter-default.jpg',
+    'https://avatars.githubusercontent.com/u/172270941?s=200&v=4',
+]
 
 const localAvatarImage = ref<string | null>(null)
 
@@ -38,6 +46,11 @@ const displayAvatarUrl = computed(() => {
 
     return '/twitter-default.jpg'
 })
+
+const removeImage = (index: number) => {
+    if (state.images && state.images.length > index)
+        state.images.splice(index, 1)
+}
 </script>
 
 <template>
@@ -48,13 +61,20 @@ const displayAvatarUrl = computed(() => {
         >
             <Icon name="presocial:twitter-repost" size="16" />
             <span class="text-xs leading-none font-semibold">
-                {{ props.data.repostedUsername }}さんがリポスト
+                {{ props.data.repostedUsername }} reposted
             </span>
         </div>
 
         <div class="flex items-start gap-3">
-            <UPopover>
-                <button type="button" class="cursor-pointer">
+            <UPopover
+                :content="{
+                    align: 'start',
+                }"
+            >
+                <button
+                    type="button"
+                    class="shrink-0 cursor-pointer rounded-full"
+                >
                     <img
                         :src="displayAvatarUrl"
                         :alt="props.data.username"
@@ -64,19 +84,43 @@ const displayAvatarUrl = computed(() => {
 
                 <template #content>
                     <div class="flex flex-col gap-2 p-3">
-                        <UInput
-                            v-model="state.avatarUrl"
-                            :placeholder="'Enter avatar image URL...'"
-                            variant="soft"
-                            @input="localAvatarImage = null"
-                        />
-                        <USeparator label="OR" />
-                        <UInput
-                            type="file"
-                            variant="soft"
-                            accept="image/*"
-                            @change="handleAvatarFileUpload"
-                        />
+                        <div class="flex items-center gap-2">
+                            <UButton
+                                v-for="(avatarUrl, index) in avatarUrlPresets"
+                                :key="'avatar-preset-' + index"
+                                variant="link"
+                                class="rounded-full p-0"
+                                @click="state.avatarUrl = avatarUrl"
+                            >
+                                <UAvatar :src="avatarUrl" />
+                            </UButton>
+                        </div>
+
+                        <USeparator label="OR" :ui="{ label: 'text-muted' }" />
+
+                        <UFormField label="Image URL">
+                            <UInput
+                                v-model="state.avatarUrl"
+                                :placeholder="'Enter avatar image URL...'"
+                                variant="soft"
+                                class="w-full"
+                                @input="localAvatarImage = null"
+                            />
+                        </UFormField>
+
+                        <USeparator label="OR" :ui="{ label: 'text-muted' }" />
+
+                        <UFormField
+                            label="Local Image"
+                            hint="Won't be uploaded to any servers."
+                        >
+                            <UInput
+                                type="file"
+                                variant="soft"
+                                accept="image/*"
+                                @change="handleAvatarFileUpload"
+                            />
+                        </UFormField>
                     </div>
                 </template>
             </UPopover>
@@ -149,6 +193,7 @@ const displayAvatarUrl = computed(() => {
                 </div>
 
                 <UTextarea
+                    v-if="props.showContent"
                     v-model="state.content"
                     :placeholder="'Enter your post content...'"
                     variant="none"
@@ -160,6 +205,45 @@ const displayAvatarUrl = computed(() => {
                     }"
                     class="-mt-0.5"
                 />
+
+                <template v-if="state.images?.length">
+                    <div
+                        :class="
+                            cn(
+                                'grid aspect-video w-full gap-1 overflow-clip rounded-xl',
+                                state.images?.length === 1
+                                    ? 'grid-cols-1'
+                                    : 'grid-cols-2'
+                            )
+                        "
+                    >
+                        <div
+                            v-for="(image, index) in state.images"
+                            :key="index"
+                            :class="
+                                cn(
+                                    'group/image relative aspect-auto w-full',
+                                    state.images?.length === 3 &&
+                                        'not-first:aspect-video first:row-span-2 first:aspect-auto',
+                                    state.images?.length === 4 && 'aspect-video'
+                                )
+                            "
+                        >
+                            <img
+                                :src="image"
+                                alt="Post Image"
+                                class="size-full object-cover"
+                            />
+                            <UButton
+                                icon="lucide:x"
+                                color="neutral"
+                                variant="soft"
+                                class="absolute top-2 right-2 rounded-full opacity-0 transition-opacity group-hover/image:opacity-100"
+                                @click="removeImage(index)"
+                            />
+                        </div>
+                    </div>
+                </template>
 
                 <div
                     class="text-dimmed flex w-full items-center justify-between gap-3 pt-1"

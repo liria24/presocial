@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { state } = useTwitterStore()
+
 const twitterOptions = reactive({
     timeline: false,
 })
@@ -27,13 +29,32 @@ useSchemaOrg([
                 Presocial
             </h1>
             <p class="text-dimmed text-center text-sm">
-                A tool to visualize the post preview of X / Twitter.
+                Simple tool to preview X/Twitter posts.
             </p>
-            <USwitch
-                v-model="twitterOptions.timeline"
-                label="Show Timeline"
-                class="mt-3"
-            />
+
+            <div class="mt-3 flex items-center gap-4">
+                <USwitch
+                    v-model="twitterOptions.timeline"
+                    label="Show Timeline"
+                    :ui="{ label: 'text-muted' }"
+                />
+                <div class="group/post relative">
+                    <UButton
+                        :to="`https://x.com/intent/post?text=${encodeURIComponent(state.content)}`"
+                        target="_blank"
+                        icon="lucide:send"
+                        label="Post on X"
+                        variant="soft"
+                        :ui="{ leadingIcon: 'size-4' }"
+                        class="gap-2 rounded-full pr-4 pl-3"
+                    />
+                    <span
+                        class="text-dimmed absolute -bottom-4 left-1.5 text-xs leading-none text-nowrap opacity-0 transition-opacity group-hover/post:opacity-100"
+                    >
+                        The images are not attached.
+                    </span>
+                </div>
+            </div>
         </div>
 
         <Twitter :timeline="twitterOptions.timeline" class="w-full max-w-xl" />

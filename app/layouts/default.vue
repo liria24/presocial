@@ -4,7 +4,7 @@
     <Html>
         <Head>
             <Title>Presocial</Title>
-            <Link rel="icon" type="image/x-icon" href="/favicon.ico" />
+            <Link rel="icon" type="image/x-icon" href="/favicon.svg" />
             <Meta name="lang" content="ja" />
         </Head>
         <Body>

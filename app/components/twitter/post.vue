@@ -87,13 +87,36 @@ const props = defineProps<Props>()
                 <p class="text-toned text-[15px]">{{ props.data.content }}</p>
 
                 <template v-if="props.data.images?.length">
-                    <img
-                        v-for="(image, index) in props.data.images"
-                        :key="'image-' + index"
-                        :src="image"
-                        alt="Post Image"
-                        class="w-full rounded-lg object-cover"
-                    />
+                    <div
+                        :class="
+                            cn(
+                                'grid aspect-video w-full gap-1 overflow-clip rounded-xl',
+                                props.data.images?.length === 1
+                                    ? 'grid-cols-1'
+                                    : 'grid-cols-2'
+                            )
+                        "
+                    >
+                        <div
+                            v-for="(image, index) in props.data.images"
+                            :key="index"
+                            :class="
+                                cn(
+                                    'aspect-auto w-full',
+                                    props.data.images?.length === 3 &&
+                                        'not-first:aspect-video first:row-span-2 first:aspect-auto',
+                                    props.data.images?.length === 4 &&
+                                        'aspect-video'
+                                )
+                            "
+                        >
+                            <img
+                                :src="image"
+                                alt="Post Image"
+                                class="size-full object-cover"
+                            />
+                        </div>
+                    </div>
                 </template>
 
                 <div

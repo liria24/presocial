@@ -5,6 +5,7 @@ interface Props {
 const props = defineProps<Props>()
 
 const { state } = useTwitterStore()
+const showContent = ref(true)
 
 const badgeItems = ref([
     {
@@ -32,6 +33,30 @@ const badgeItems = ref([
 const icon = computed(
     () => badgeItems.value.find((item) => item.value === state.badge)?.icon
 )
+
+const { onChange, open, reset } = useFileDialog({
+    accept: 'image/*',
+    directory: false,
+})
+
+onChange((files) => {
+    const currentImagesLength = state.images?.length || 0
+    if (!files?.length || currentImagesLength > 4) return
+
+    const fileList = Array.from(files)
+    const urls = fileList
+        .slice(0, 4 - currentImagesLength)
+        .map((file) => URL.createObjectURL(file))
+    for (const url of urls) {
+        if (state.images) state.images.push(url)
+        else state.images = [url]
+    }
+    reset()
+})
+
+const initializeRepostedUsername = () => {
+    if (!state.repostedUsername.length) state.repostedUsername = 'Presocial'
+}
 </script>
 
 <template>
@@ -40,7 +65,8 @@ const icon = computed(
             :class="
                 cn(
                     'divide-muted flex w-full flex-col divide-y overflow-hidden rounded-xl',
-                    props.timeline ? 'mask-t-from-60% mask-b-from-60%' : 'mt-10'
+                    props.timeline && 'mask-t-from-60% mask-b-from-60%',
+                    !props.timeline && !state.images?.length && 'mt-10'
                 )
             "
         >
@@ -60,7 +86,7 @@ const icon = computed(
                 }"
             />
 
-            <TwitterEditablePost :data="state" />
+            <TwitterEditablePost :data="state" :show-content="showContent" />
 
             <TwitterPost
                 v-if="props.timeline"
@@ -83,13 +109,14 @@ const icon = computed(
         <div
             class="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100"
         >
-            <!-- <UButton
+            <UButton
                 icon="lucide:plus"
                 label="Media"
                 variant="soft"
                 size="sm"
                 class="rounded-full pr-3"
-            /> -->
+                @click="open()"
+            />
 
             <USelect
                 v-model="state.badge"
@@ -101,9 +128,23 @@ const icon = computed(
                 class="min-w-28 rounded-full"
             />
 
-            <UPopover>
+            <UButton
+                :icon="showContent ? 'lucide:pen-off' : 'lucide:pen'"
+                aria-label="Toggle content visibility"
+                variant="soft"
+                size="sm"
+                class="rounded-full"
+                @click="showContent = !showContent"
+            />
+
+            <UPopover
+                :content="{
+                    align: 'end',
+                }"
+            >
                 <UButton
                     icon="lucide:building"
+                    aria-label="Organization Avatar"
                     variant="soft"
                     size="sm"
                     class="rounded-full"
@@ -117,19 +158,40 @@ const icon = computed(
                 </template>
             </UPopover>
 
-            <UPopover>
+            <UPopover
+                :content="{
+                    align: 'end',
+                }"
+            >
                 <UButton
                     icon="lucide:repeat-2"
+                    aria-label="Reposted Username"
                     variant="soft"
                     size="sm"
                     class="rounded-full"
+                    @click="initializeRepostedUsername"
                 />
                 <template #content>
                     <UInput
                         v-model="state.repostedUsername"
                         :placeholder="'Reposted Username'"
                         variant="soft"
-                    />
+                        :ui="{ trailing: 'pe-1' }"
+                    >
+                        <template
+                            v-if="state.repostedUsername.length"
+                            #trailing
+                        >
+                            <UButton
+                                color="neutral"
+                                variant="ghost"
+                                size="sm"
+                                icon="lucide:x"
+                                aria-label="Clear input"
+                                @click="state.repostedUsername = ''"
+                            />
+                        </template>
+                    </UInput>
                 </template>
             </UPopover>
         </div>
