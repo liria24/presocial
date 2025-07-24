@@ -54,6 +54,12 @@ const items = ref<TimelineItem[]>([
         platform: 'X',
     },
     {
+        title: 'Post Theme Color',
+        description: 'Default (light), Dark blue and black.',
+        icon: 'simple-icons:x',
+        platform: 'X',
+    },
+    {
         date: '2025-7-24',
         title: 'Support PWA',
         icon: 'presocial:presocial',
