@@ -3,14 +3,7 @@ const { state, options } = useTwitterStore()
 </script>
 
 <template>
-    <div
-        :class="
-            cn(
-                'fixed right-5 bottom-15 flex flex-col items-end gap-3',
-                'sm:static sm:flex-row sm:items-center'
-            )
-        "
-    >
+    <div class="flex items-center gap-3">
         <TwitterSettingsAddMedia />
 
         <TwitterSettingsBadge />
