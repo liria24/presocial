@@ -3,13 +3,30 @@ interface Props {
     data: Twitter
 }
 const props = defineProps<Props>()
+
+const { options } = useTwitterStore()
 </script>
 
 <template>
-    <div class="flex min-h-12 flex-col gap-1 bg-black p-3.5">
+    <div
+        :data-theme="options.theme"
+        :class="
+            cn(
+                'group flex min-h-12 flex-col gap-2 p-3.5',
+                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light'
+            )
+        "
+    >
         <div
-            v-if="props.data.repostedUsername?.length"
-            class="text-muted flex items-center gap-2 pl-6"
+            v-if="props.data.reposted"
+            :class="
+                cn(
+                    'flex items-center gap-2 pl-6',
+                    'group-data-[theme=black]:text-twitter-secondary-black',
+                    'group-data-[theme=dark]:text-twitter-secondary-dark',
+                    'group-data-[theme=light]:text-twitter-secondary-light'
+                )
+            "
         >
             <Icon name="presocial:twitter-repost" size="16" />
             <span class="text-xs leading-none font-semibold">
@@ -32,7 +49,12 @@ const props = defineProps<Props>()
                 <div class="flex items-center gap-1">
                     <div class="flex grow items-center gap-1">
                         <span
-                            class="pt-px text-[15px] leading-none font-bold text-nowrap"
+                            :class="
+                                cn(
+                                    'pt-px text-[15px] leading-none font-bold text-nowrap',
+                                    'group-data-[theme=black]:text-twitter-primary-black group-data-[theme=dark]:text-twitter-primary-dark group-data-[theme=light]:text-twitter-primary-light'
+                                )
+                            "
                         >
                             {{ props.data.username }}
                         </span>
@@ -57,31 +79,57 @@ const props = defineProps<Props>()
                             :alt="$t('twitter.organizationAvatar')"
                             class="border-muted size-[15px] border"
                         />
-                        <p
-                            class="text-dimmed text-[15px] leading-none text-nowrap"
+                        <div
+                            :class="
+                                cn(
+                                    'flex items-center gap-1',
+                                    'group-data-[theme=black]:text-twitter-secondary-black',
+                                    'group-data-[theme=dark]:text-twitter-secondary-dark',
+                                    'group-data-[theme=light]:text-twitter-secondary-light'
+                                )
+                            "
                         >
-                            @{{ props.data.userId }}
-                        </p>
-                        <Icon
-                            name="lucide:dot"
-                            size="10"
-                            class="text-dimmed -mx-0.5 pb-0.5"
-                        />
-                        <span
-                            class="text-dimmed pb-0.5 text-[15px] leading-none text-nowrap"
-                        >
-                            {{ props.data.time }}
-                        </span>
+                            <p class="text-[15px] leading-none text-nowrap">
+                                @{{ props.data.userId }}
+                            </p>
+                            <Icon
+                                name="lucide:dot"
+                                size="10"
+                                class="-mx-0.5 pb-0.5"
+                            />
+                            <span
+                                class="pb-0.5 text-[15px] leading-none text-nowrap"
+                            >
+                                {{ props.data.time }}
+                            </span>
+                        </div>
                     </div>
 
                     <Icon
                         name="lucide:ellipsis"
                         size="18"
-                        class="text-dimmed"
+                        :class="
+                            cn(
+                                'group-data-[theme=black]:text-twitter-secondary-black',
+                                'group-data-[theme=dark]:text-twitter-secondary-dark',
+                                'group-data-[theme=light]:text-twitter-secondary-light'
+                            )
+                        "
                     />
                 </div>
 
-                <p class="text-toned text-[15px]">{{ props.data.content }}</p>
+                <p
+                    :class="
+                        cn(
+                            'text-[15px]',
+                            'group-data-[theme=light]:text-twitter-primary-light',
+                            'group-data-[theme=dark]:text-twitter-primary-dark',
+                            'group-data-[theme=black]:text-twitter-primary-black'
+                        )
+                    "
+                >
+                    {{ props.data.content }}
+                </p>
 
                 <template v-if="props.data.images?.length">
                     <div
@@ -117,7 +165,14 @@ const props = defineProps<Props>()
                 </template>
 
                 <div
-                    class="text-dimmed flex w-full items-center justify-between gap-3 pt-1"
+                    :class="
+                        cn(
+                            'flex w-full items-center justify-between gap-3 pt-1',
+                            'group-data-[theme=black]:text-twitter-secondary-black',
+                            'group-data-[theme=dark]:text-twitter-secondary-dark',
+                            'group-data-[theme=light]:text-twitter-secondary-light'
+                        )
+                    "
                 >
                     <div class="flex items-center gap-1">
                         <Icon name="presocial:twitter-reply" size="18" />

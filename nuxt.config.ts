@@ -38,6 +38,10 @@ export default defineNuxtConfig({
         },
     },
 
+    routeRules: {
+        '/roadmap': { prerender: true },
+    },
+
     runtimeConfig: {
         public: {
             siteUrl: baseUrl,

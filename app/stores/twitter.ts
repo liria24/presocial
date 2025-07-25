@@ -27,13 +27,13 @@ export const useTwitterStore = defineStore('twitterStore', () => {
         repost: 3,
         like: 10,
         view: 1124,
-        repostedUsername: '',
+        reposted: false,
+        repostedUsername: 'Presocial',
     })
 
     const options = ref<TwitterOptions>({
         timeline: false,
-        showContent: true,
-        theme: 'light',
+        theme: 'dark',
     })
 
     return { state, options }

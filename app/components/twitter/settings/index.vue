@@ -1,9 +1,5 @@
 <script setup lang="ts">
 const { state, options } = useTwitterStore()
-
-const initializeRepostedUsername = () => {
-    if (!state.repostedUsername?.length) state.repostedUsername = 'Presocial'
-}
 </script>
 
 <template>
@@ -20,53 +16,66 @@ const initializeRepostedUsername = () => {
         <TwitterSettingsBadge />
 
         <div class="flex items-center gap-3">
-            <UButton
-                :icon="options.showContent ? 'lucide:pen-off' : 'lucide:pen'"
-                :aria-label="$t('twitter.toggleContentVisibility')"
-                variant="soft"
-                size="sm"
-                class="rounded-full"
-                @click="options.showContent = !options.showContent"
-            />
-
             <TwitterSettingsOrgAvatar />
 
-            <UPopover
+            <UButton
+                icon="lucide:repeat-2"
+                :aria-label="$t('twitter.repostedUsername')"
+                variant="soft"
+                size="sm"
+                :active="state.reposted"
+                active-variant="solid"
+                active-color="neutral"
+                class="rounded-full"
+                @click="state.reposted = !state.reposted"
+            />
+
+            <UDropdownMenu
                 :content="{
                     align: 'end',
                 }"
+                :items="[
+                    {
+                        label: $t('common.default'),
+                        value: 'light',
+                        onSelect: () => (options.theme = 'light'),
+                    },
+                    {
+                        label: $t('common.darkBlue'),
+                        value: 'dark',
+                        onSelect: () => (options.theme = 'dark'),
+                    },
+                    {
+                        label: $t('common.black'),
+                        value: 'black',
+                        onSelect: () => (options.theme = 'black'),
+                    },
+                ]"
             >
-                <UButton
-                    icon="lucide:repeat-2"
-                    :aria-label="$t('twitter.repostedUsername')"
-                    variant="soft"
-                    size="sm"
-                    class="rounded-full"
-                    @click="initializeRepostedUsername"
-                />
-                <template #content>
-                    <UInput
-                        v-model="state.repostedUsername"
-                        :placeholder="$t('twitter.repostedUsername')"
-                        variant="soft"
-                        :ui="{ trailing: 'pe-1' }"
-                    >
-                        <template
-                            v-if="state.repostedUsername?.length"
-                            #trailing
-                        >
-                            <UButton
-                                color="neutral"
-                                variant="ghost"
-                                size="sm"
-                                icon="lucide:x"
-                                :aria-label="$t('common.clearInput')"
-                                @click="state.repostedUsername = ''"
-                            />
-                        </template>
-                    </UInput>
+                <UButton variant="soft" size="sm" class="rounded-full p-1.5">
+                    <div
+                        :data-theme="options.theme"
+                        :class="
+                            cn(
+                                'ring-muted size-4 rounded-full ring-2',
+                                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light'
+                            )
+                        "
+                    />
+                </UButton>
+
+                <template #item-leading="{ item }">
+                    <div
+                        :data-theme="item.value"
+                        :class="
+                            cn(
+                                'ring-muted size-4 rounded-full ring-2',
+                                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light'
+                            )
+                        "
+                    />
                 </template>
-            </UPopover>
+            </UDropdownMenu>
         </div>
     </div>
 </template>

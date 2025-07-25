@@ -35,15 +35,41 @@ const removeImage = (index: number) => {
 </script>
 
 <template>
-    <div class="flex min-h-12 flex-col gap-1 bg-black p-3.5">
+    <div
+        :data-theme="options.theme"
+        :class="
+            cn(
+                'group flex min-h-12 flex-col gap-2 p-3.5',
+                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light'
+            )
+        "
+    >
         <div
-            v-if="state.repostedUsername?.length"
-            class="text-muted flex items-center gap-2 pl-6"
+            v-if="state.reposted"
+            :class="
+                cn(
+                    'flex items-center gap-2 pl-6',
+                    'group-data-[theme=black]:text-twitter-secondary-black',
+                    'group-data-[theme=dark]:text-twitter-secondary-dark',
+                    'group-data-[theme=light]:text-twitter-secondary-light'
+                )
+            "
         >
             <Icon name="presocial:twitter-repost" size="16" />
-            <span class="text-xs leading-none font-semibold">
-                {{ state.repostedUsername + $t('twitter.reposted') }}
-            </span>
+            <p class="pb-0.5 text-xs leading-none font-semibold">
+                <span
+                    aria-label="User ID"
+                    contenteditable="true"
+                    role="textbox"
+                    spellcheck="false"
+                    class="inline-block min-w-[1h] cursor-text outline-none"
+                >
+                    {{ state.repostedUsername }}
+                </span>
+                <span>
+                    {{ $t('twitter.reposted') }}
+                </span>
+            </p>
         </div>
 
         <div class="flex items-start gap-3">
@@ -133,7 +159,12 @@ const removeImage = (index: number) => {
                             contenteditable="true"
                             role="textbox"
                             spellcheck="false"
-                            class="inline-block min-w-[1ch] cursor-text pt-px text-[15px] leading-none font-bold text-nowrap outline-none"
+                            :class="
+                                cn(
+                                    'inline-block min-w-[1ch] cursor-text pt-px text-[15px] leading-none font-bold text-nowrap outline-none',
+                                    'group-data-[theme=black]:text-twitter-primary-black group-data-[theme=dark]:text-twitter-primary-dark group-data-[theme=light]:text-twitter-primary-light'
+                                )
+                            "
                         >
                             {{ state.username }}
                         </span>
@@ -158,93 +189,123 @@ const removeImage = (index: number) => {
                             :alt="$t('twitter.organizationAvatar')"
                             class="border-muted size-[15px] border"
                         />
-                        <p
-                            class="text-dimmed text-[15px] leading-none text-nowrap"
+                        <div
+                            :class="
+                                cn(
+                                    'flex items-center gap-1',
+                                    'group-data-[theme=black]:text-twitter-secondary-black',
+                                    'group-data-[theme=dark]:text-twitter-secondary-dark',
+                                    'group-data-[theme=light]:text-twitter-secondary-light'
+                                )
+                            "
                         >
-                            <span>@</span>
+                            <p class="text-[15px] leading-none text-nowrap">
+                                <span>@</span>
+                                <span
+                                    aria-label="User ID"
+                                    contenteditable="true"
+                                    role="textbox"
+                                    spellcheck="false"
+                                    class="inline-block min-w-[1h] cursor-text pb-0.5 outline-none"
+                                >
+                                    {{ state.userId }}
+                                </span>
+                            </p>
+                            <Icon
+                                name="lucide:dot"
+                                size="10"
+                                class="-mx-0.5 pb-0.5"
+                            />
                             <span
-                                aria-label="User ID"
+                                aria-label="Time"
                                 contenteditable="true"
                                 role="textbox"
                                 spellcheck="false"
-                                class="inline-block min-w-[1h] cursor-text pb-0.5 outline-none"
+                                class="inline-block min-w-[1ch] cursor-text pb-0.5 text-[15px] leading-none text-nowrap outline-none"
                             >
-                                {{ state.userId }}
+                                {{ state.time }}
                             </span>
-                        </p>
-                        <Icon
-                            name="lucide:dot"
-                            size="10"
-                            class="text-dimmed -mx-0.5 pb-0.5"
-                        />
-                        <span
-                            aria-label="Time"
-                            contenteditable="true"
-                            role="textbox"
-                            spellcheck="false"
-                            class="text-dimmed inline-block min-w-[1ch] cursor-text pb-0.5 text-[15px] leading-none text-nowrap outline-none"
-                        >
-                            {{ state.time }}
-                        </span>
+                        </div>
                     </div>
 
                     <Icon
                         name="lucide:ellipsis"
                         size="18"
-                        class="text-dimmed"
+                        :class="
+                            cn(
+                                'group-data-[theme=black]:text-twitter-secondary-black',
+                                'group-data-[theme=dark]:text-twitter-secondary-dark',
+                                'group-data-[theme=light]:text-twitter-secondary-light'
+                            )
+                        "
                     />
                 </div>
 
                 <UTextarea
-                    v-if="options.showContent"
                     v-model="state.content"
-                    :placeholder="$t('twitter.contentPlaceholder')"
+                    :placeholder="
+                        !state.images?.length
+                            ? $t('twitter.contentPlaceholder')
+                            : ''
+                    "
                     variant="none"
                     autoresize
                     :rows="1"
                     spellcheck="false"
                     :ui="{
-                        base: 'p-0 text-[15px] rounded-none text-toned',
+                        base: cn(
+                            'p-0 text-[15px] rounded-none ',
+                            'group-data-[theme=light]:text-twitter-primary-light',
+                            'group-data-[theme=dark]:text-twitter-primary-dark',
+                            'group-data-[theme=black]:text-twitter-primary-black'
+                        ),
                     }"
                     class="-mt-0.5"
                 />
 
-                <template v-if="state.images?.length">
-                    <div
+                <div
+                    v-if="state.images?.length"
+                    :class="
+                        cn(
+                            'grid aspect-video w-full gap-1 overflow-clip rounded-xl',
+                            state.images?.length === 1
+                                ? 'grid-cols-1'
+                                : 'grid-cols-2',
+                            !state.content.length && '-mt-4'
+                        )
+                    "
+                >
+                    <button
+                        v-for="(image, index) in state.images"
+                        :key="index"
+                        tyepe="button"
                         :class="
                             cn(
-                                'grid aspect-video w-full gap-1 overflow-clip rounded-xl',
-                                state.images?.length === 1
-                                    ? 'grid-cols-1'
-                                    : 'grid-cols-2'
+                                'aspect-auto w-full cursor-pointer transition-opacity hover:opacity-60',
+                                state.images?.length === 3 &&
+                                    'not-first:aspect-video first:row-span-2 first:aspect-auto',
+                                state.images?.length === 4 && 'aspect-video'
                             )
                         "
+                        @click="removeImage(index)"
                     >
-                        <button
-                            v-for="(image, index) in state.images"
-                            :key="index"
-                            tyepe="button"
-                            :class="
-                                cn(
-                                    'aspect-auto w-full cursor-pointer transition-opacity hover:opacity-60',
-                                    state.images?.length === 3 &&
-                                        'not-first:aspect-video first:row-span-2 first:aspect-auto',
-                                    state.images?.length === 4 && 'aspect-video'
-                                )
-                            "
-                            @click="removeImage(index)"
-                        >
-                            <NuxtImg
-                                :src="image"
-                                :alt="$t('twitter.postImage')"
-                                class="size-full object-cover"
-                            />
-                        </button>
-                    </div>
-                </template>
+                        <NuxtImg
+                            :src="image"
+                            :alt="$t('twitter.postImage')"
+                            class="size-full object-cover"
+                        />
+                    </button>
+                </div>
 
                 <div
-                    class="text-dimmed flex w-full items-center justify-between gap-3 pt-1"
+                    :class="
+                        cn(
+                            'flex w-full items-center justify-between gap-3 pt-1',
+                            'group-data-[theme=black]:text-twitter-secondary-black',
+                            'group-data-[theme=dark]:text-twitter-secondary-dark',
+                            'group-data-[theme=light]:text-twitter-secondary-light'
+                        )
+                    "
                 >
                     <div class="flex items-center gap-1">
                         <Icon name="presocial:twitter-reply" size="18" />

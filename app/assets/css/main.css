@@ -8,10 +8,57 @@
 :root {
     --ui-container: 64rem;
     --color-zinc-900: oklch(18.3% 0.004 285.93);
+    --ui-bg: var(--color-zinc-100);
 }
 
 .dark {
     --ui-bg: var(--color-zinc-900);
+}
+
+@utility bg-twitter-light {
+    background-color: #ffffff;
+}
+@utility bg-twitter-dark {
+    background-color: #15202b;
+}
+@utility bg-twitter-black {
+    background-color: #000000;
+}
+
+@utility text-twitter-primary-light {
+    color: #0f1419;
+}
+@utility text-twitter-primary-dark {
+    color: #f7f9f9;
+}
+@utility text-twitter-primary-black {
+    color: #e7e9ea;
+}
+
+@utility text-twitter-secondary-light {
+    color: #536471;
+}
+@utility text-twitter-secondary-dark {
+    color: #8b98a5;
+}
+@utility text-twitter-secondary-black {
+    color: #71767b;
+}
+
+@utility divide-twitter-light {
+    :where(& > :not(:last-child)) {
+        border-color: #eff3f4;
+    }
+}
+@utility divide-twitter-dark {
+    :where(& > :not(:last-child)) {
+        border-color: #38444d;
+    }
+}
+@utility divide-twitter-black {
+    :where(& > :not(:last-child)) {
+        border-color: #2f3336;
+    }
 }
 
 html {

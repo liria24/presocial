@@ -11,11 +11,11 @@ export interface Twitter {
     repost?: number
     like?: number
     view?: number
+    reposted?: boolean
     repostedUsername?: string
 }
 
 export interface TwitterOptions {
     timeline: boolean
-    showContent: boolean
     theme: 'light' | 'dark' | 'black'
 }

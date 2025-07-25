@@ -54,6 +54,7 @@ const items = ref<TimelineItem[]>([
         platform: 'X',
     },
     {
+        date: '2025-7-25',
         title: 'Post Theme Color',
         description: 'Default (light), Dark blue and black.',
         icon: 'simple-icons:x',
@@ -107,7 +108,7 @@ defineSeo({
 
         <div class="w-fit max-w-sm">
             <UTimeline
-                :default-value="3"
+                :default-value="4"
                 :items="items"
                 reverse
                 color="neutral"

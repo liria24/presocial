@@ -38,6 +38,9 @@ const icon = computed(
         :placeholder="t('common.badge')"
         variant="soft"
         size="sm"
+        :ui="{
+            base: 'bg-primary/10 hover:bg-primary/15 focus:bg-accented/75 active:bg-primary/15 disabled:bg-primary/10',
+        }"
         class="min-w-28 rounded-full"
     />
 </template>

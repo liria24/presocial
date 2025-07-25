@@ -6,9 +6,14 @@ const { state, options } = useTwitterStore()
     <div
         :class="
             cn(
-                'divide-muted flex w-full flex-col divide-y overflow-hidden rounded-xl',
-                options.timeline && 'mask-t-from-60% mask-b-from-60%',
-                !options.timeline && !state.images?.length && 'mt-10'
+                'flex w-full flex-col divide-y overflow-hidden',
+                options.timeline
+                    ? 'mask-t-from-70% mask-b-from-70%'
+                    : 'rounded-xl',
+                !options.timeline && !state.images?.length && 'mt-10',
+                options.theme === 'light' && 'divide-twitter-light',
+                options.theme === 'dark' && 'divide-twitter-dark',
+                options.theme === 'black' && 'divide-twitter-black'
             )
         "
     >
@@ -24,7 +29,6 @@ const { state, options } = useTwitterStore()
                     'Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet consectetur adipiscing elit quisque faucibus.',
                 like: 8,
                 view: 84,
-                repostedUsername: '',
             }"
         />
 
@@ -42,7 +46,6 @@ const { state, options } = useTwitterStore()
                 repost: 7,
                 like: 15,
                 view: 200,
-                repostedUsername: '',
             }"
         />
     </div>

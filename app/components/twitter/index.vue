@@ -10,7 +10,7 @@ const { state, options } = useTwitterStore()
                 :label="$t('twitter.showTimeline')"
                 :ui="{ label: 'text-muted' }"
             />
-            <div class="group/post relative">
+            <div class="group/post-on-x relative">
                 <UButton
                     :to="`https://x.com/intent/post?text=${encodeURIComponent(state.content)}`"
                     target="_blank"
@@ -21,7 +21,7 @@ const { state, options } = useTwitterStore()
                     class="gap-2 rounded-full px-3"
                 />
                 <span
-                    class="text-dimmed absolute -bottom-4 left-1.5 text-xs leading-none text-nowrap opacity-0 transition-opacity group-hover/post:opacity-100"
+                    class="text-dimmed absolute -bottom-4 left-1.5 text-xs leading-none text-nowrap opacity-0 transition-opacity group-hover/post-on-x:opacity-100"
                 >
                     {{ $t('twitter.postOnXWarning') }}
                 </span>
