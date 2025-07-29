@@ -241,7 +241,7 @@ const removeImage = (index: number) => {
                     />
                 </div>
 
-                <UTextarea
+                <!-- <UTextarea
                     v-model="state.content"
                     :placeholder="
                         !state.images?.length
@@ -261,7 +261,8 @@ const removeImage = (index: number) => {
                         ),
                     }"
                     class="-mt-0.5"
-                />
+                /> -->
+                <TwitterTextarea />
 
                 <div
                     v-if="state.images?.length"
