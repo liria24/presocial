@@ -140,6 +140,15 @@ export default defineNuxtConfig({
         },
     },
 
+    image: {
+        domains: [
+            'avatars.githubusercontent.com', // GitHub User Avatars
+        ],
+        alias: {
+            githubAvatar: 'https://avatars.githubusercontent.com',
+        },
+    },
+
     pwa: {
         registerType: 'autoUpdate',
         manifest: {
@@ -206,10 +215,16 @@ export default defineNuxtConfig({
 
     nitro: {
         preset: 'vercel',
+        vercel: {
+            config: {
+                images: {
+                    minimumCacheTTL: 2678400, // 31 days
+                },
+            },
+        },
         compressPublicAssets: true,
         experimental: {
             asyncContext: true,
-            openAPI: true,
         },
     },
 
