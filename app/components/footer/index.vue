@@ -1,11 +1,10 @@
 <script lang="ts" setup>
+const { app, external } = useAppConfig()
 const { locales } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 const { state } = useSiteStore()
 
-const { data: repo } = useFetch<{ repo: GithubRepo }>(
-    'https://ungh.cc/repos/liria24/presocial'
-)
+const { data: repo } = useFetch<{ repo: GithubRepo }>(app.ungh)
 
 const colorMode = useColorMode()
 
@@ -20,23 +19,7 @@ const languageMenu = locales.value.map((locale) => ({
     onSelect: () => navigateTo(switchLocalePath(locale.code)),
 }))
 
-const builtTools = [
-    {
-        name: 'Vercel',
-        icon: 'simple-icons:vercel',
-        url: 'https://vercel.com',
-    },
-    {
-        name: 'Nuxt',
-        icon: 'simple-icons:nuxt',
-        url: 'https://nuxt.com',
-    },
-    {
-        name: 'Tailwind CSS',
-        icon: 'simple-icons:tailwindcss',
-        url: 'https://tailwindcss.com',
-    },
-]
+const builtTools = Object.values(external)
 </script>
 
 <template>
@@ -49,7 +32,7 @@ const builtTools = [
                     © 2025
                 </p>
                 <UButton
-                    to="https://liria.me"
+                    :to="app.liriaSite"
                     target="_blank"
                     label="Liria"
                     trailing-icon="presocial:liria"
@@ -87,7 +70,7 @@ const builtTools = [
                 </p>
                 <UPopover mode="hover" :open-delay="100">
                     <UButton
-                        to="https://github.com/liria24/presocial"
+                        :to="app.repo"
                         target="_blank"
                         icon="simple-icons:github"
                         aria-label="GitHub"
@@ -100,7 +83,7 @@ const builtTools = [
                         <div v-if="repo" class="flex items-center gap-3 p-2">
                             <NuxtImg
                                 v-slot="{ src, imgAttrs, isLoaded }"
-                                src="https://avatars.githubusercontent.com/u/172270941?v=4"
+                                :src="app.liriaAvatar"
                                 alt="Liria"
                                 loading="lazy"
                                 :width="48"
