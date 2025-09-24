@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { app } = useAppConfig()
 const { state, options } = useTwitterStore()
 </script>
 
@@ -22,8 +23,7 @@ const { state, options } = useTwitterStore()
             :data="{
                 username: 'Liria',
                 userId: 'liria_24',
-                avatarUrl:
-                    'https://avatars.githubusercontent.com/u/172270941?s=200&v=4',
+                avatarUrl: app.liriaAvatar,
                 time: '1分',
                 content:
                     'Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet consectetur adipiscing elit quisque faucibus.',

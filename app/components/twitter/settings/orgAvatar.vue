@@ -1,10 +1,8 @@
 <script setup lang="ts">
+const { app } = useAppConfig()
 const { state } = useTwitterStore()
 
-const avatarUrlPresets = [
-    '/maskable-icon-512x512.png',
-    'https://avatars.githubusercontent.com/u/172270941?s=200&v=4',
-]
+const avatarUrlPresets = ['/maskable-icon-512x512.png', app.liriaAvatar]
 
 // ファイル選択時の処理
 const handleFileChange = (event: Event) => {

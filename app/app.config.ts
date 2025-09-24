@@ -1,4 +1,30 @@
 export default defineAppConfig({
+    app: {
+        name: 'Presocial',
+        version: '0.1.0',
+        author: 'Liria',
+        repo: 'https://github.com/liria24/presocial',
+        ungh: 'https://ungh.cc/repos/liria24/presocial',
+        liriaSite: 'https://liria.me',
+        liriaAvatar: 'https://github.com/liria24.png',
+    },
+    external: {
+        vercel: {
+            name: 'Vercel',
+            url: 'https://vercel.com',
+            icon: 'simple-icons:vercel',
+        },
+        nuxt: {
+            name: 'Nuxt',
+            url: 'https://nuxt.com',
+            icon: 'simple-icons:nuxt',
+        },
+        tailwind: {
+            name: 'Tailwind CSS',
+            url: 'https://tailwindcss.com',
+            icon: 'simple-icons:tailwindcss',
+        },
+    },
     ui: {
         colors: {
             primary: 'zinc',
@@ -15,7 +41,7 @@ export default defineAppConfig({
         },
         button: {
             slots: {
-                base: 'cursor-pointer',
+                base: 'cursor-pointer select-none',
             },
             compoundVariants: [
                 {
@@ -59,6 +85,11 @@ export default defineAppConfig({
         dropdownMenu: {
             slots: {
                 item: 'cursor-pointer',
+            },
+        },
+        fileUpload: {
+            slots: {
+                base: 'cursor-pointer',
             },
         },
         input: {
@@ -133,7 +164,6 @@ export default defineAppConfig({
         select: {
             slots: {
                 base: 'cursor-pointer',
-                item: 'cursor-pointer',
             },
             compoundVariants: [
                 {
