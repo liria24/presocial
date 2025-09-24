@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { app } = useAppConfig()
 const { state } = useSiteStore()
 
 defineSeo({
@@ -18,8 +19,17 @@ useSchemaOrg([
 </script>
 
 <template>
-    <div class="flex w-full flex-col items-center gap-8 pt-6 sm:pt-24">
+    <div class="flex w-full flex-col items-center gap-16 pt-6 sm:pt-24">
         <div v-if="state.showHero" class="flex flex-col items-center gap-3">
+            <UButton
+                to="/roadmap"
+                :label="`v${app.version}`"
+                trailing-icon="lucide:arrow-right"
+                variant="outline"
+                size="sm"
+                :ui="{ label: 'leading-none pt-px' }"
+                class="rounded-full pt-[5px] pr-2.5 pb-1.5 pl-3.5"
+            />
             <h1 class="text-center text-7xl font-thin tracking-tighter">
                 Presocial
             </h1>

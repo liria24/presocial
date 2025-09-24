@@ -86,6 +86,9 @@ const parseText = (input: string): TextSegment[] => {
 
     // セグメントを構築
     matches.forEach(({ match, type, index }) => {
+        // 既に処理された範囲と重複する場合はスキップ
+        if (index < lastIndex) return
+
         // マッチ前の通常テキスト
         if (index > lastIndex) {
             segments.push({
@@ -187,19 +190,36 @@ onMounted(adjustTextareaHeight)
                     <span
                         v-for="(segment, index) in displaySegments"
                         :key="index"
-                        :class="{
-                            'text-blue-500':
-                                segment.type === 'hashtag' ||
-                                segment.type === 'mention',
-                            'text-blue-500 underline': segment.type === 'url',
-                            'text-twitter-primary-dark':
-                                segment.type === 'normal',
-                        }"
+                        :class="
+                            cn(
+                                {
+                                    'text-blue-500':
+                                        segment.type === 'hashtag' ||
+                                        segment.type === 'mention',
+                                    'text-blue-500 underline':
+                                        segment.type === 'url',
+                                },
+                                segment.type === 'normal' && [
+                                    'group-data-[theme=light]:text-twitter-primary-light',
+                                    'group-data-[theme=dark]:text-twitter-primary-dark',
+                                    'group-data-[theme=black]:text-twitter-primary-black',
+                                ]
+                            )
+                        "
                     >
                         {{ segment.text }}
                     </span>
                 </template>
-                <span v-else class="text-gray-400">
+                <span
+                    v-else
+                    :class="
+                        cn(
+                            'group-data-[theme=light]:text-twitter-secondary-light',
+                            'group-data-[theme=dark]:text-twitter-secondary-dark',
+                            'group-data-[theme=black]:text-twitter-secondary-black'
+                        )
+                    "
+                >
                     {{ $t('twitter.whatsHappening') }}
                 </span>
             </div>
