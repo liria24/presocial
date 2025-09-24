@@ -9,7 +9,17 @@ interface TextSegment {
 // 定数定義
 const MIN_HEIGHT = 20 // 最小テキストエリア高さ (px)
 
-const text = ref('')
+// Twitterストアと同期
+const { state } = useTwitterStore()
+
+// テキストはストアの content と同期する computed プロパティ
+const text = computed({
+    get: () => state.content,
+    set: (value) => {
+        state.content = value
+    },
+})
+
 const composingText = ref('')
 const isComposing = ref(false)
 const textareaRef = ref<HTMLTextAreaElement | null>(null)
@@ -150,7 +160,7 @@ const syncScroll = () => {
 }
 
 // テキスト変更時に高さを調整
-watch([text, composingText], () => {
+watch([() => state.content, composingText], () => {
     nextTick(adjustTextareaHeight)
 })
 
@@ -189,7 +199,9 @@ onMounted(adjustTextareaHeight)
                         {{ segment.text }}
                     </span>
                 </template>
-                <span v-else class="text-gray-400">今何してる？</span>
+                <span v-else class="text-gray-400">
+                    {{ $t('twitter.whatsHappening') }}
+                </span>
             </div>
         </div>
 
@@ -197,7 +209,7 @@ onMounted(adjustTextareaHeight)
         <textarea
             ref="textareaRef"
             v-model="text"
-            placeholder="今何してる？"
+            :placeholder="$t('twitter.whatsHappening')"
             rows="1"
             :style="{
                 ...commonTextStyles,

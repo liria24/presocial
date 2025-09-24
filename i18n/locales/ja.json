@@ -31,6 +31,7 @@
         "repostedUsername": "リポストしたユーザー名",
         "contentPlaceholder": "ポスト内容を入力...",
         "postImage": "ポスト画像",
-        "reposted": "さんがリポスト"
+        "reposted": "さんがリポスト",
+        "whatsHappening": "いまどうしてる？"
     }
 }
