@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { t } = useI18n({ useScope: 'local' })
 const { state, options } = useTwitterStore()
 </script>
 
@@ -13,7 +14,7 @@ const { state, options } = useTwitterStore()
 
             <UButton
                 icon="lucide:repeat-2"
-                :aria-label="$t('twitter.repostedUsername')"
+                :aria-label="t('repostedUsername')"
                 variant="soft"
                 size="sm"
                 :active="state.reposted"
@@ -29,17 +30,17 @@ const { state, options } = useTwitterStore()
                 }"
                 :items="[
                     {
-                        label: $t('common.default'),
+                        label: t('default'),
                         value: 'light',
                         onSelect: () => (options.theme = 'light'),
                     },
                     {
-                        label: $t('common.darkBlue'),
+                        label: t('darkBlue'),
                         value: 'dark',
                         onSelect: () => (options.theme = 'dark'),
                     },
                     {
-                        label: $t('common.black'),
+                        label: t('black'),
                         value: 'black',
                         onSelect: () => (options.theme = 'black'),
                     },
@@ -72,3 +73,20 @@ const { state, options } = useTwitterStore()
         </div>
     </div>
 </template>
+
+<i18n lang="json">
+{
+    "en": {
+        "repostedUsername": "Reposted Username",
+        "default": "Default",
+        "darkBlue": "Dark Blue",
+        "black": "Black"
+    },
+    "ja": {
+        "repostedUsername": "リポストしたユーザー名",
+        "default": "デフォルト",
+        "darkBlue": "ダークブルー",
+        "black": "ブラック"
+    }
+}
+</i18n>

@@ -2,6 +2,8 @@
 const { app } = useAppConfig()
 const { state } = useSiteStore()
 
+const { t } = useI18n({ useScope: 'local' })
+
 defineSeo({
     type: 'website',
     title: 'Presocial',
@@ -28,16 +30,29 @@ useSchemaOrg([
                 variant="outline"
                 size="sm"
                 :ui="{ label: 'leading-none pt-px' }"
-                class="rounded-full pt-[5px] pr-2.5 pb-1.5 pl-3.5"
+                class="rounded-full pt-1.25 pr-2.5 pb-1.5 pl-3.5"
             />
-            <h1 class="text-center text-7xl font-thin tracking-tighter">
-                Presocial
-            </h1>
+            <h1 class="text-center text-7xl font-thin tracking-tighter">Presocial</h1>
             <p class="text-dimmed text-center text-sm">
-                {{ $t('site.description') }}
+                {{ t('site.description') }}
             </p>
         </div>
 
         <Twitter />
     </div>
 </template>
+
+<i18n lang="json">
+{
+    "en": {
+        "site": {
+            "description": "Simple tool to preview X/Twitter posts."
+        }
+    },
+    "ja": {
+        "site": {
+            "description": "X/Twitterのポストをプレビューするシンプルなツール"
+        }
+    }
+}
+</i18n>

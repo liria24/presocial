@@ -1,4 +1,6 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const { t } = useI18n({ useScope: 'local' })
+</script>
 
 <template>
     <Html>
@@ -8,14 +10,11 @@
             <Meta name="lang" content="ja" />
         </Head>
         <Body>
-            <UContainer
-                class="flex min-h-dvh flex-col items-center gap-6 pt-6 md:gap-8"
-            >
+            <UContainer class="flex min-h-dvh flex-col items-center gap-6 pt-6 md:gap-8">
                 <div
                     class="hidden w-full items-center justify-center rounded-xl bg-red-100 p-4 text-sm text-red-800 ring-2 ring-red-500 noscript:flex"
                 >
-                    この Web サイトは JavaScript を使用しています。<br />
-                    JavaScript が無効の場合、正しく表示されません。
+                    {{ t('usingJavaScript') }}
                 </div>
 
                 <main class="grid w-full grow">
@@ -27,3 +26,14 @@
         </Body>
     </Html>
 </template>
+
+<i18n lang="json">
+{
+    "en": {
+        "usingJavaScript": "This website uses JavaScript.\nIf JavaScript is disabled, it will not be displayed correctly."
+    },
+    "ja": {
+        "usingJavaScript": "この Web サイトは JavaScript を使用しています。\nJavaScript が無効の場合、正しく表示されません。"
+    }
+}
+</i18n>

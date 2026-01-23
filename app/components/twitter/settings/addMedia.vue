@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { t } = useI18n({ useScope: 'local' })
 const { state } = useTwitterStore()
 
 const { onChange, open, reset } = useFileDialog({
@@ -11,9 +12,7 @@ onChange((files) => {
     if (!files?.length || currentImagesLength > 4) return
 
     const fileList = Array.from(files)
-    const urls = fileList
-        .slice(0, 4 - currentImagesLength)
-        .map((file) => URL.createObjectURL(file))
+    const urls = fileList.slice(0, 4 - currentImagesLength).map((file) => URL.createObjectURL(file))
     for (const url of urls) {
         if (state.images) state.images.push(url)
         else state.images = [url]
@@ -25,10 +24,21 @@ onChange((files) => {
 <template>
     <UButton
         icon="lucide:plus"
-        :label="$t('common.media')"
+        :label="t('media')"
         variant="soft"
         size="sm"
         class="rounded-full pr-3"
         @click="open()"
     />
 </template>
+
+<i18n lang="json">
+{
+    "en": {
+        "media": "Media"
+    },
+    "ja": {
+        "media": "メディア"
+    }
+}
+</i18n>

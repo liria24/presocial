@@ -1,33 +1,31 @@
 <script setup lang="ts">
-const { t } = useI18n()
+const { t } = useI18n({ useScope: 'local' })
 const { state } = useTwitterStore()
 
 const badgeItems = ref([
     {
-        label: t('common.none'),
+        label: t('none'),
         value: undefined,
         icon: 'lucide:eye-off',
     },
     {
-        label: t('common.blue'),
+        label: t('blue'),
         value: 'blue',
         icon: 'presocial:twitter-badge-blue',
     },
     {
-        label: t('common.gold'),
+        label: t('gold'),
         value: 'gold',
         icon: 'presocial:twitter-badge-gold',
     },
     {
-        label: t('common.gray'),
+        label: t('gray'),
         value: 'gray',
         icon: 'presocial:twitter-badge-gray',
     },
 ])
 
-const icon = computed(
-    () => badgeItems.value.find((item) => item.value === state.badge)?.icon
-)
+const icon = computed(() => badgeItems.value.find((item) => item.value === state.badge)?.icon)
 </script>
 
 <template>
@@ -35,7 +33,7 @@ const icon = computed(
         v-model="state.badge"
         :items="badgeItems"
         :icon="icon"
-        :placeholder="t('common.badge')"
+        :placeholder="t('badge')"
         variant="soft"
         size="sm"
         :ui="{
@@ -44,3 +42,22 @@ const icon = computed(
         class="min-w-28 rounded-full"
     />
 </template>
+
+<i18n lang="json">
+{
+    "en": {
+        "none": "None",
+        "blue": "Blue",
+        "gold": "Gold",
+        "gray": "Gray",
+        "badge": "Badge"
+    },
+    "ja": {
+        "none": "なし",
+        "blue": "ブルー",
+        "gold": "ゴールド",
+        "gray": "グレー",
+        "badge": "バッジ"
+    }
+}
+</i18n>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { TimelineItem } from '@nuxt/ui'
 
+const { t } = useI18n({ useScope: 'local' })
+
 const items = ref<TimelineItem[]>([
     {
         title: 'Stable Release',
@@ -93,33 +95,22 @@ defineSeo({
 <template>
     <div class="flex w-full flex-col items-center gap-8 pt-6 sm:pt-24">
         <div class="flex flex-col items-center gap-3">
-            <h1 class="text-center text-5xl font-thin tracking-tighter">
-                Roadmap
-            </h1>
+            <h1 class="text-center text-5xl font-thin tracking-tighter">Roadmap</h1>
 
             <UButton
                 :to="$localePath('/')"
                 icon="lucide:arrow-left"
-                :label="$t('common.backToHome')"
+                :label="t('backToHome')"
                 variant="link"
                 size="sm"
             />
         </div>
 
         <div class="w-fit max-w-sm">
-            <UTimeline
-                :default-value="4"
-                :items="items"
-                reverse
-                color="neutral"
-                size="xs"
-            >
+            <UTimeline :default-value="4" :items="items" reverse color="neutral" size="xs">
                 <template #title="{ item }">
                     <div class="flex items-center gap-2">
-                        <span
-                            v-if="item.platform?.length"
-                            class="text-muted font-bold"
-                        >
+                        <span v-if="item.platform?.length" class="text-muted font-bold">
                             {{ item.platform }}:
                         </span>
                         <span>{{ item.title }}</span>
@@ -129,3 +120,14 @@ defineSeo({
         </div>
     </div>
 </template>
+
+<i18n lang="json">
+{
+    "en": {
+        "backToHome": "Back to Home"
+    },
+    "ja": {
+        "backToHome": "ホームに戻る"
+    }
+}
+</i18n>

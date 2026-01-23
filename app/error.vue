@@ -2,7 +2,7 @@
 import type { NuxtError } from '#app'
 import * as locales from '@nuxt/ui/locale'
 
-const { locale } = useI18n()
+const { t, locale } = useI18n({ useScope: 'local' })
 
 const props = defineProps({
     error: {
@@ -20,12 +20,8 @@ const props = defineProps({
         <NuxtRouteAnnouncer />
         <NuxtLoadingIndicator />
         <NuxtLayout>
-            <div
-                class="mt-24 flex w-full flex-col items-center justify-center gap-4"
-            >
-                <h1
-                    class="font-[Geist] text-9xl leading-none font-extralight text-nowrap"
-                >
+            <div class="mt-24 flex w-full flex-col items-center justify-center gap-4">
+                <h1 class="font-[Geist] text-9xl leading-none font-extralight text-nowrap">
                     {{ props.error.statusCode }}
                 </h1>
                 <h2 class="text-muted text-lg">
@@ -33,7 +29,7 @@ const props = defineProps({
                 </h2>
                 <UButton
                     :to="$localePath('/')"
-                    label="ホームに戻る"
+                    :label="t('backToHome')"
                     icon="lucide:arrow-left"
                     variant="soft"
                     size="lg"
@@ -43,3 +39,14 @@ const props = defineProps({
         </NuxtLayout>
     </UApp>
 </template>
+
+<i18n lang="json">
+{
+    "en": {
+        "backToHome": "Back to Home"
+    },
+    "ja": {
+        "backToHome": "ホームに戻る"
+    }
+}
+</i18n>
