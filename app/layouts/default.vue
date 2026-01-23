@@ -17,7 +17,7 @@ const { t } = useI18n({ useScope: 'local' })
                     {{ t('usingJavaScript') }}
                 </div>
 
-                <main class="grid w-full grow">
+                <main class="flex w-full grow flex-col justify-center">
                     <slot />
                 </main>
 
