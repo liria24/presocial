@@ -1,7 +1,7 @@
 export default defineAppConfig({
     app: {
         name: 'Presocial',
-        version: '0.1.0',
+        version: '0.2.0',
         author: 'Liria',
         repo: 'https://github.com/liria24/presocial',
         ungh: 'https://ungh.cc/repos/liria24/presocial',
