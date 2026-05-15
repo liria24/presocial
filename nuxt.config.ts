@@ -25,6 +25,7 @@ export default defineNuxtConfig({
         'pinia-plugin-persistedstate/nuxt',
         '@nuxt/hints',
         '@nuxt/a11y',
+        '@vercel/analytics',
     ],
 
     css: ['~/assets/css/main.css'],
