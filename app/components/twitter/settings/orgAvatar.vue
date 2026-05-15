@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { t } = useI18n({ useScope: 'local' })
 const { app } = useAppConfig()
 const { state } = useTwitterStore()
 
@@ -19,8 +20,7 @@ const handleFileChange = (event: Event) => {
         // ファイルをData URLとして読み込む
         const reader = new FileReader()
         reader.onload = (e) => {
-            if (e.target?.result)
-                state.organizationAvatarUrl = e.target.result as string
+            if (e.target?.result) state.organizationAvatarUrl = e.target.result as string
         }
         reader.onerror = () => console.error('Error reading file')
 
@@ -38,7 +38,7 @@ const handleFileChange = (event: Event) => {
     >
         <UButton
             icon="lucide:building"
-            :aria-label="$t('twitter.organizationAvatar')"
+            :aria-label="t('organizationAvatar')"
             variant="soft"
             size="sm"
             class="rounded-full"
@@ -67,24 +67,21 @@ const handleFileChange = (event: Event) => {
 
                 <USeparator label="OR" :ui="{ label: 'text-muted' }" />
 
-                <UFormField :label="$t('common.imageUrl')">
+                <UFormField :label="t('imageUrl')">
                     <UInput
                         v-model="state.organizationAvatarUrl"
-                        :placeholder="$t('common.imageUrlPlaceholder')"
+                        :placeholder="t('imageUrlPlaceholder')"
                         variant="soft"
                         :ui="{ trailing: 'pe-1' }"
                         class="w-full"
                     >
-                        <template
-                            v-if="state.organizationAvatarUrl?.length"
-                            #trailing
-                        >
+                        <template v-if="state.organizationAvatarUrl?.length" #trailing>
                             <UButton
                                 color="neutral"
                                 variant="ghost"
                                 size="sm"
                                 icon="lucide:x"
-                                :aria-label="$t('common.clearInput')"
+                                :aria-label="t('clearInput')"
                                 @click="state.organizationAvatarUrl = ''"
                             />
                         </template>
@@ -92,8 +89,8 @@ const handleFileChange = (event: Event) => {
                 </UFormField>
 
                 <UFormField
-                    :label="$t('common.localImage')"
-                    :hint="$t('common.localImageHint')"
+                    :label="t('localImage')"
+                    :hint="t('localImageHint')"
                     :ui="{ hint: 'text-xs' }"
                 >
                     <UInput
@@ -107,3 +104,24 @@ const handleFileChange = (event: Event) => {
         </template>
     </UPopover>
 </template>
+
+<i18n lang="json">
+{
+    "en": {
+        "organizationAvatar": "Organization Avatar",
+        "imageUrl": "Image URL",
+        "imageUrlPlaceholder": "Enter image URL...",
+        "localImage": "Local Image",
+        "localImageHint": "Won't be uploaded to any servers.",
+        "clearInput": "Clear input"
+    },
+    "ja": {
+        "organizationAvatar": "組織アイコン",
+        "imageUrl": "画像 URL",
+        "imageUrlPlaceholder": "画像の URL を入力...",
+        "localImage": "ローカル画像",
+        "localImageHint": "サーバーに保存されることはありません",
+        "clearInput": "入力をクリア"
+    }
+}
+</i18n>

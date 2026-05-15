@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { t } = useI18n({ useScope: 'local' })
 const { state, options } = useTwitterStore()
 </script>
 
@@ -8,7 +9,7 @@ const { state, options } = useTwitterStore()
             <div class="flex items-center gap-4">
                 <USwitch
                     v-model="options.timeline"
-                    :label="$t('twitter.showTimeline')"
+                    :label="t('showTimeline')"
                     size="sm"
                     :ui="{ label: 'text-muted' }"
                 />
@@ -17,7 +18,7 @@ const { state, options } = useTwitterStore()
                         :to="`https://x.com/intent/post?text=${encodeURIComponent(state.content)}`"
                         target="_blank"
                         icon="lucide:send"
-                        :label="$t('twitter.postOnX')"
+                        :label="t('postOnX')"
                         variant="soft"
                         size="sm"
                         :ui="{ leadingIcon: 'size-4' }"
@@ -26,7 +27,7 @@ const { state, options } = useTwitterStore()
                     <span
                         class="text-dimmed absolute -bottom-4 left-1.5 text-xs leading-none text-nowrap opacity-0 transition-opacity group-hover/post-on-x:opacity-100"
                     >
-                        {{ $t('twitter.postOnXWarning') }}
+                        {{ t('postOnXWarning') }}
                     </span>
                 </div>
             </div>
@@ -37,3 +38,18 @@ const { state, options } = useTwitterStore()
         <TwitterTimeline class="mt-4 w-full max-w-xl" />
     </div>
 </template>
+
+<i18n lang="json">
+{
+    "en": {
+        "showTimeline": "Show Timeline",
+        "postOnX": "Post on X",
+        "postOnXWarning": "The images are not attached."
+    },
+    "ja": {
+        "showTimeline": "タイムライン表示",
+        "postOnX": "X にポスト",
+        "postOnXWarning": "画像は実際には添付されません"
+    }
+}
+</i18n>

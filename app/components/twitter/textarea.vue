@@ -6,13 +6,12 @@ interface TextSegment {
     type: SegmentType
 }
 
-// 定数定義
 const MIN_HEIGHT = 20 // 最小テキストエリア高さ (px)
 
-// Twitterストアと同期
+const { t } = useI18n({ useScope: 'local' })
+
 const { state } = useTwitterStore()
 
-// テキストはストアの content と同期する computed プロパティ
 const text = computed({
     get: () => state.content,
     set: (value) => {
@@ -57,8 +56,7 @@ const patterns = [
 const parseText = (input: string): TextSegment[] => {
     if (!input) return [{ text: '', type: 'normal' }]
 
-    const matches: Array<{ match: string; type: SegmentType; index: number }> =
-        []
+    const matches: Array<{ match: string; type: SegmentType; index: number }> = []
 
     // すべてのパターンにマッチする部分を収集
     patterns.forEach(({ regex, type }) => {
@@ -112,7 +110,7 @@ const parseText = (input: string): TextSegment[] => {
 
 // 表示用の完全なテキスト（確定テキスト+未確定テキスト）
 const displayText = computed(() =>
-    isComposing.value ? text.value + composingText.value : text.value
+    isComposing.value ? text.value + composingText.value : text.value,
 )
 
 // 表示用のスタイル付きセグメント
@@ -194,16 +192,14 @@ onMounted(adjustTextareaHeight)
                             cn(
                                 {
                                     'text-blue-500':
-                                        segment.type === 'hashtag' ||
-                                        segment.type === 'mention',
-                                    'text-blue-500 underline':
-                                        segment.type === 'url',
+                                        segment.type === 'hashtag' || segment.type === 'mention',
+                                    'text-blue-500 underline': segment.type === 'url',
                                 },
                                 segment.type === 'normal' && [
                                     'group-data-[theme=light]:text-twitter-primary-light',
                                     'group-data-[theme=dark]:text-twitter-primary-dark',
                                     'group-data-[theme=black]:text-twitter-primary-black',
-                                ]
+                                ],
                             )
                         "
                     >
@@ -216,11 +212,11 @@ onMounted(adjustTextareaHeight)
                         cn(
                             'group-data-[theme=light]:text-twitter-secondary-light',
                             'group-data-[theme=dark]:text-twitter-secondary-dark',
-                            'group-data-[theme=black]:text-twitter-secondary-black'
+                            'group-data-[theme=black]:text-twitter-secondary-black',
                         )
                     "
                 >
-                    {{ $t('twitter.whatsHappening') }}
+                    {{ t('whatsHappening') }}
                 </span>
             </div>
         </div>
@@ -229,7 +225,7 @@ onMounted(adjustTextareaHeight)
         <textarea
             ref="textareaRef"
             v-model="text"
-            :placeholder="$t('twitter.whatsHappening')"
+            :placeholder="t('whatsHappening')"
             rows="1"
             :style="{
                 ...commonTextStyles,
@@ -248,3 +244,14 @@ onMounted(adjustTextareaHeight)
         />
     </div>
 </template>
+
+<i18n lang="json">
+{
+    "en": {
+        "whatsHappening": "What's happening?"
+    },
+    "ja": {
+        "whatsHappening": "いまどうしてる？"
+    }
+}
+</i18n>

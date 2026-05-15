@@ -1,4 +1,3 @@
-import tailwindcss from '@tailwindcss/vite'
 import { defineOrganization } from 'nuxt-schema-org/schema'
 
 const baseUrl = import.meta.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000'
@@ -12,7 +11,6 @@ export default defineNuxtConfig({
     devtools: { enabled: true, timeline: { enabled: true } },
 
     modules: [
-        '@nuxt/eslint',
         '@nuxt/image',
         '@nuxt/ui',
         '@nuxtjs/device',
@@ -25,16 +23,27 @@ export default defineNuxtConfig({
         'nuxt-schema-org',
         'nuxt-seo-utils',
         'pinia-plugin-persistedstate/nuxt',
+        '@nuxt/hints',
+        '@nuxt/a11y',
+        '@vercel/analytics',
     ],
-
-    plugins: [{ src: '~/plugins/axe.client.ts', mode: 'client' }],
 
     css: ['~/assets/css/main.css'],
 
     vite: {
-        plugins: [tailwindcss()],
+        vue: {
+            features: {
+                optionsAPI: false,
+            },
+        },
         optimizeDeps: {
-            include: import.meta.dev ? ['axe-core'] : [],
+            include: [
+                '@nuxt/ui > prosemirror-state',
+                '@nuxt/ui > prosemirror-transform',
+                '@nuxt/ui > prosemirror-model',
+                '@nuxt/ui > prosemirror-view',
+                '@nuxt/ui > prosemirror-gapcursor',
+            ],
         },
     },
 
@@ -46,6 +55,29 @@ export default defineNuxtConfig({
         public: {
             siteUrl: baseUrl,
         },
+    },
+
+    nitro: {
+        preset: 'vercel',
+        compressPublicAssets: true,
+        vercel: {
+            config: {
+                images: {
+                    minimumCacheTTL: 2678400, // 31 days
+                },
+            },
+        },
+        experimental: {
+            asyncContext: true,
+        },
+    },
+
+    experimental: {
+        crossOriginPrefetch: true,
+        extractAsyncDataHandlers: true,
+        inlineRouteRules: true,
+        sharedPrerenderData: true,
+        typescriptPlugin: true,
     },
 
     site: {
@@ -61,10 +93,7 @@ export default defineNuxtConfig({
             title,
             meta: [
                 { charset: 'utf-8' },
-                {
-                    name: 'viewport',
-                    content: 'width=device-width, initial-scale=1',
-                },
+                { name: 'viewport', content: 'width=device-width, initial-scale=1' },
                 { property: 'og:site_name', content: title },
                 { property: 'og:type', content: 'website' },
                 { property: 'og:url', content: 'https://presocial.vercel.app' },
@@ -78,10 +107,7 @@ export default defineNuxtConfig({
             ],
             link: [
                 { rel: 'icon', href: `/favicon.ico`, sizes: '48x48' },
-                {
-                    rel: 'apple-touch-icon',
-                    href: `/apple-touch-icon-180x180.png`,
-                },
+                { rel: 'apple-touch-icon', href: `/apple-touch-icon-180x180.png` },
             ],
         },
     },
@@ -101,14 +127,12 @@ export default defineNuxtConfig({
                 code: 'en',
                 language: 'en-US',
                 name: 'English (US)',
-                file: 'en.json',
                 icon: 'twemoji:flag-united-states',
             },
             {
                 code: 'ja',
                 language: 'ja-JP',
                 name: '日本語',
-                file: 'ja.json',
                 icon: 'twemoji:flag-japan',
             },
         ],
@@ -128,12 +152,6 @@ export default defineNuxtConfig({
                 'lucide:sun',
                 'lucide:moon',
                 'lucide:palette',
-                'lucide:bolt',
-                'lucide:chevron-right',
-                'lucide:chevron-left',
-                'lucide:chevron-down',
-                'lucide:chevron-up',
-                'lucide:copy',
             ],
             scan: true,
             includeCustomCollections: true,
@@ -144,9 +162,6 @@ export default defineNuxtConfig({
         domains: [
             'avatars.githubusercontent.com', // GitHub User Avatars
         ],
-        alias: {
-            githubAvatar: 'https://avatars.githubusercontent.com',
-        },
     },
 
     pwa: {
@@ -194,7 +209,6 @@ export default defineNuxtConfig({
     },
 
     robots: {
-        allow: ['Twitterbot', 'facebookexternalhit'],
         blockNonSeoBots: true,
         blockAiBots: true,
     },
@@ -204,32 +218,12 @@ export default defineNuxtConfig({
             name: 'Liria',
             description: 'Small Circle by Liry24',
             logo: {
-                url: '/logo-liria.png',
+                url: 'https://liria.me/avatar.png',
                 width: 460,
                 height: 460,
             },
             email: 'hello@liria.me',
             sameAs: ['https://x.com/liria_24', 'https://github.com/liria24'],
         }),
-    },
-
-    nitro: {
-        preset: 'vercel',
-        vercel: {
-            config: {
-                images: {
-                    minimumCacheTTL: 2678400, // 31 days
-                },
-            },
-        },
-        compressPublicAssets: true,
-        experimental: {
-            asyncContext: true,
-        },
-    },
-
-    experimental: {
-        scanPageMeta: true,
-        payloadExtraction: true,
     },
 })

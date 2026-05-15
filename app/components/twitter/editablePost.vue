@@ -1,12 +1,9 @@
 <script setup lang="ts">
+const { t } = useI18n({ useScope: 'local' })
 const { app } = useAppConfig()
 const { state, options } = useTwitterStore()
 
-const avatarUrlPresets = [
-    '/twitter-default.jpg',
-    '/maskable-icon-512x512.png',
-    app.liriaAvatar,
-]
+const avatarUrlPresets = ['/twitter-default.jpg', '/maskable-icon-512x512.png', app.liriaAvatar]
 
 const handleAvatarFileUpload = (event: Event) => {
     const input = event.target as HTMLInputElement
@@ -20,8 +17,7 @@ const handleAvatarFileUpload = (event: Event) => {
 
         const reader = new FileReader()
         reader.onload = (e) => {
-            if (e.target && typeof e.target.result === 'string')
-                state.avatarUrl = e.target.result
+            if (e.target && typeof e.target.result === 'string') state.avatarUrl = e.target.result
         }
         reader.onerror = () => console.error('Error reading file')
 
@@ -30,8 +26,7 @@ const handleAvatarFileUpload = (event: Event) => {
 }
 
 const removeImage = (index: number) => {
-    if (state.images && state.images.length > index)
-        state.images.splice(index, 1)
+    if (state.images && state.images.length > index) state.images.splice(index, 1)
 }
 </script>
 
@@ -41,7 +36,7 @@ const removeImage = (index: number) => {
         :class="
             cn(
                 'group flex min-h-12 flex-col gap-2 p-3.5',
-                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light'
+                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light',
             )
         "
     >
@@ -52,7 +47,7 @@ const removeImage = (index: number) => {
                     'flex items-center gap-2 pl-6',
                     'group-data-[theme=black]:text-twitter-secondary-black',
                     'group-data-[theme=dark]:text-twitter-secondary-dark',
-                    'group-data-[theme=light]:text-twitter-secondary-light'
+                    'group-data-[theme=light]:text-twitter-secondary-light',
                 )
             "
         >
@@ -68,7 +63,7 @@ const removeImage = (index: number) => {
                     {{ state.repostedUsername }}
                 </span>
                 <span>
-                    {{ $t('twitter.reposted') }}
+                    {{ t('reposted') }}
                 </span>
             </p>
         </div>
@@ -79,16 +74,9 @@ const removeImage = (index: number) => {
                     align: 'start',
                 }"
             >
-                <button
-                    type="button"
-                    class="shrink-0 cursor-pointer rounded-full"
-                >
+                <button type="button" class="shrink-0 cursor-pointer rounded-full">
                     <img
-                        :src="
-                            state.avatarUrl?.length
-                                ? state.avatarUrl
-                                : '/twitter-default.jpg'
-                        "
+                        :src="state.avatarUrl?.length ? state.avatarUrl : '/twitter-default.jpg'"
                         :alt="state.username"
                         class="aspect-square size-10 rounded-full object-cover"
                     />
@@ -110,24 +98,21 @@ const removeImage = (index: number) => {
 
                         <USeparator label="OR" :ui="{ label: 'text-muted' }" />
 
-                        <UFormField :label="$t('common.imageUrl')">
+                        <UFormField :label="t('imageUrl')">
                             <UInput
                                 v-model="state.avatarUrl"
-                                :placeholder="$t('common.imageUrlPlaceholder')"
+                                :placeholder="t('imageUrlPlaceholder')"
                                 variant="soft"
                                 :ui="{ trailing: 'pe-1' }"
                                 class="w-full"
                             >
-                                <template
-                                    v-if="state.avatarUrl?.length"
-                                    #trailing
-                                >
+                                <template v-if="state.avatarUrl?.length" #trailing>
                                     <UButton
                                         color="neutral"
                                         variant="ghost"
                                         size="sm"
                                         icon="lucide:x"
-                                        :aria-label="$t('common.clearInput')"
+                                        :aria-label="t('clearInput')"
                                         @click="state.avatarUrl = ''"
                                     />
                                 </template>
@@ -137,8 +122,8 @@ const removeImage = (index: number) => {
                         <USeparator label="OR" :ui="{ label: 'text-muted' }" />
 
                         <UFormField
-                            :label="$t('common.localImage')"
-                            :hint="$t('common.localImageHint')"
+                            :label="t('localImage')"
+                            :hint="t('localImageHint')"
                             :ui="{ hint: 'text-xs' }"
                         >
                             <UInput
@@ -163,7 +148,7 @@ const removeImage = (index: number) => {
                             :class="
                                 cn(
                                     'inline-block min-w-[1ch] cursor-text pt-px text-[15px] leading-none font-bold text-nowrap outline-none',
-                                    'group-data-[theme=black]:text-twitter-primary-black group-data-[theme=dark]:text-twitter-primary-dark group-data-[theme=light]:text-twitter-primary-light'
+                                    'group-data-[theme=black]:text-twitter-primary-black group-data-[theme=dark]:text-twitter-primary-dark group-data-[theme=light]:text-twitter-primary-light',
                                 )
                             "
                         >
@@ -187,8 +172,8 @@ const removeImage = (index: number) => {
                         <img
                             v-if="state.organizationAvatarUrl?.length"
                             :src="state.organizationAvatarUrl"
-                            :alt="$t('twitter.organizationAvatar')"
-                            class="border-muted size-[15px] border"
+                            :alt="t('organizationAvatar')"
+                            class="border-muted size-3.75 border"
                         />
                         <div
                             :class="
@@ -196,7 +181,7 @@ const removeImage = (index: number) => {
                                     'flex items-center gap-1',
                                     'group-data-[theme=black]:text-twitter-secondary-black',
                                     'group-data-[theme=dark]:text-twitter-secondary-dark',
-                                    'group-data-[theme=light]:text-twitter-secondary-light'
+                                    'group-data-[theme=light]:text-twitter-secondary-light',
                                 )
                             "
                         >
@@ -212,11 +197,7 @@ const removeImage = (index: number) => {
                                     {{ state.userId }}
                                 </span>
                             </p>
-                            <Icon
-                                name="lucide:dot"
-                                size="10"
-                                class="-mx-0.5 pb-0.5"
-                            />
+                            <Icon name="lucide:dot" size="10" class="-mx-0.5 pb-0.5" />
                             <span
                                 aria-label="Time"
                                 contenteditable="true"
@@ -236,7 +217,7 @@ const removeImage = (index: number) => {
                             cn(
                                 'group-data-[theme=black]:text-twitter-secondary-black',
                                 'group-data-[theme=dark]:text-twitter-secondary-dark',
-                                'group-data-[theme=light]:text-twitter-secondary-light'
+                                'group-data-[theme=light]:text-twitter-secondary-light',
                             )
                         "
                     />
@@ -270,10 +251,8 @@ const removeImage = (index: number) => {
                     :class="
                         cn(
                             'grid aspect-video w-full gap-1 overflow-clip rounded-xl',
-                            state.images?.length === 1
-                                ? 'grid-cols-1'
-                                : 'grid-cols-2',
-                            !state.content.length && '-mt-4'
+                            state.images?.length === 1 ? 'grid-cols-1' : 'grid-cols-2',
+                            !state.content.length && '-mt-4',
                         )
                     "
                 >
@@ -286,14 +265,14 @@ const removeImage = (index: number) => {
                                 'aspect-auto w-full cursor-pointer transition-opacity hover:opacity-60',
                                 state.images?.length === 3 &&
                                     'not-first:aspect-video first:row-span-2 first:aspect-auto',
-                                state.images?.length === 4 && 'aspect-video'
+                                state.images?.length === 4 && 'aspect-video',
                             )
                         "
                         @click="removeImage(index)"
                     >
                         <NuxtImg
                             :src="image"
-                            :alt="$t('twitter.postImage')"
+                            :alt="t('postImage')"
                             class="size-full object-cover"
                         />
                     </button>
@@ -305,7 +284,7 @@ const removeImage = (index: number) => {
                             'flex w-full items-center justify-between gap-3 pt-1',
                             'group-data-[theme=black]:text-twitter-secondary-black',
                             'group-data-[theme=dark]:text-twitter-secondary-dark',
-                            'group-data-[theme=light]:text-twitter-secondary-light'
+                            'group-data-[theme=light]:text-twitter-secondary-light',
                         )
                     "
                 >
@@ -370,3 +349,26 @@ const removeImage = (index: number) => {
         </div>
     </div>
 </template>
+
+<i18n lang="json">
+{
+    "en": {
+        "reposted": "Reposted",
+        "imageUrl": "Image URL",
+        "imageUrlPlaceholder": "Enter image URL...",
+        "clearInput": "Clear input",
+        "localImage": "Local Image",
+        "localImageHint": "Won't be uploaded to any servers.",
+        "postImage": "Post Image"
+    },
+    "ja": {
+        "reposted": "リポスト",
+        "imageUrl": "画像 URL",
+        "imageUrlPlaceholder": "画像の URL を入力...",
+        "clearInput": "入力をクリア",
+        "localImage": "ローカル画像",
+        "localImageHint": "サーバーに保存されることはありません",
+        "postImage": "投稿画像"
+    }
+}
+</i18n>

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 const { app, external } = useAppConfig()
-const { locales } = useI18n()
+const { t, locales } = useI18n({ useScope: 'local' })
 const switchLocalePath = useSwitchLocalePath()
 const { state } = useSiteStore()
 
@@ -23,14 +23,10 @@ const builtTools = Object.values(external)
 </script>
 
 <template>
-    <footer
-        class="mt-12 flex w-full items-end justify-between gap-4 pb-3 sm:items-center"
-    >
+    <footer class="mt-12 flex w-full items-end justify-between gap-4 pb-3 sm:items-center">
         <div class="flex flex-col gap-x-6 gap-y-2 sm:flex-row sm:items-center">
             <div class="flex items-center gap-1.5">
-                <p class="text-dimmed text-sm leading-none text-nowrap">
-                    © 2025
-                </p>
+                <p class="text-dimmed text-sm leading-none text-nowrap">© 2025</p>
                 <UButton
                     :to="app.liriaSite"
                     target="_blank"
@@ -44,11 +40,7 @@ const builtTools = Object.values(external)
             </div>
 
             <div class="flex items-center gap-2">
-                <p
-                    class="text-dimmed text-sm leading-none font-light text-nowrap"
-                >
-                    built on
-                </p>
+                <p class="text-dimmed text-sm leading-none font-light text-nowrap">built on</p>
                 <UButton
                     v-for="tool in builtTools"
                     :key="tool.name"
@@ -63,9 +55,7 @@ const builtTools = Object.values(external)
             </div>
 
             <div class="flex items-center gap-2">
-                <p
-                    class="text-dimmed text-sm leading-none font-light text-nowrap"
-                >
+                <p class="text-dimmed text-sm leading-none font-light text-nowrap">
                     opened source on
                 </p>
                 <UPopover mode="hover" :open-delay="100">
@@ -92,32 +82,17 @@ const builtTools = Object.values(external)
                                 custom
                                 class="aspect-square size-12 rounded-lg object-cover"
                             >
-                                <img
-                                    v-if="isLoaded"
-                                    v-bind="imgAttrs"
-                                    :src="src"
-                                />
-                                <USkeleton
-                                    v-else
-                                    class="aspect-square size-12 rounded-lg"
-                                />
+                                <img v-if="isLoaded" v-bind="imgAttrs" :src="src" />
+                                <USkeleton v-else class="aspect-square size-12 rounded-lg" />
                             </NuxtImg>
 
                             <div class="flex flex-col gap-2 font-[Geist]">
-                                <span
-                                    class="text-sm leading-none font-semibold text-nowrap"
-                                >
+                                <span class="text-sm leading-none font-semibold text-nowrap">
                                     {{ repo.repo.repo }}
                                 </span>
                                 <div class="flex items-center gap-1">
-                                    <Icon
-                                        name="lucide:star"
-                                        size="14"
-                                        class="text-muted"
-                                    />
-                                    <span
-                                        class="text-muted text-xs leading-none text-nowrap"
-                                    >
+                                    <Icon name="lucide:star" size="14" class="text-muted" />
+                                    <span class="text-muted text-xs leading-none text-nowrap">
                                         {{ repo.repo.stars }}
                                     </span>
 
@@ -151,7 +126,7 @@ const builtTools = Object.values(external)
 
             <UButton
                 icon="lucide:maximize-2"
-                aria-label="ヒーローセクションの表示切替"
+                :aria-label="t('heroToggle')"
                 variant="ghost"
                 size="sm"
                 @click="state.showHero = !state.showHero"
@@ -167,7 +142,7 @@ const builtTools = Object.values(external)
             >
                 <UButton
                     icon="lucide:languages"
-                    :aria-label="$t('common.language')"
+                    :aria-label="t('language')"
                     variant="ghost"
                     size="sm"
                 />
@@ -177,21 +152,21 @@ const builtTools = Object.values(external)
                 <UDropdownMenu
                     :items="[
                         {
-                            label: $t('common.system'),
+                            label: t('system'),
                             icon: 'lucide:monitor',
                             onSelect: () => {
                                 colorMode.preference = 'system'
                             },
                         },
                         {
-                            label: $t('common.light'),
+                            label: t('light'),
                             icon: 'lucide:sun',
                             onSelect: () => {
                                 colorMode.preference = 'light'
                             },
                         },
                         {
-                            label: $t('common.dark'),
+                            label: t('dark'),
                             icon: 'lucide:moon',
                             onSelect: () => {
                                 colorMode.preference = 'dark'
@@ -205,12 +180,8 @@ const builtTools = Object.values(external)
                     }"
                 >
                     <UButton
-                        :icon="
-                            colorMode.value === 'dark'
-                                ? 'lucide:moon'
-                                : 'lucide:sun'
-                        "
-                        aria-label="テーマ"
+                        :icon="colorMode.value === 'dark' ? 'lucide:moon' : 'lucide:sun'"
+                        :aria-label="t('language')"
                         variant="ghost"
                         size="sm"
                     />
@@ -219,7 +190,7 @@ const builtTools = Object.values(external)
                 <template #fallback>
                     <UButton
                         icon="lucide:palette"
-                        aria-label="テーマ"
+                        :aria-label="t('language')"
                         variant="ghost"
                         size="sm"
                     />
@@ -228,3 +199,22 @@ const builtTools = Object.values(external)
         </div>
     </footer>
 </template>
+
+<i18n lang="json">
+{
+    "en": {
+        "system": "System",
+        "light": "Light",
+        "dark": "Dark",
+        "language": "Language",
+        "heroToggle": "Hero section toggle"
+    },
+    "ja": {
+        "system": "システム",
+        "light": "ライト",
+        "dark": "ダーク",
+        "language": "言語",
+        "heroToggle": "ヒーローセクションの表示切替"
+    }
+}
+</i18n>

@@ -4,6 +4,7 @@ interface Props {
 }
 const props = defineProps<Props>()
 
+const { t } = useI18n({ useScope: 'local' })
 const { options } = useTwitterStore()
 </script>
 
@@ -13,7 +14,7 @@ const { options } = useTwitterStore()
         :class="
             cn(
                 'group flex min-h-12 flex-col gap-2 p-3.5',
-                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light'
+                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light',
             )
         "
     >
@@ -24,23 +25,19 @@ const { options } = useTwitterStore()
                     'flex items-center gap-2 pl-6',
                     'group-data-[theme=black]:text-twitter-secondary-black',
                     'group-data-[theme=dark]:text-twitter-secondary-dark',
-                    'group-data-[theme=light]:text-twitter-secondary-light'
+                    'group-data-[theme=light]:text-twitter-secondary-light',
                 )
             "
         >
             <Icon name="presocial:twitter-repost" size="16" />
             <span class="text-xs leading-none font-semibold">
-                {{ props.data.repostedUsername + $t('twitter.reposted') }}
+                {{ props.data.repostedUsername + t('reposted') }}
             </span>
         </div>
 
         <div class="flex items-start gap-3">
             <NuxtImg
-                :src="
-                    props.data.avatarUrl?.length
-                        ? props.data.avatarUrl
-                        : '/twitter-default.jpg'
-                "
+                :src="props.data.avatarUrl?.length ? props.data.avatarUrl : '/twitter-default.jpg'"
                 :alt="props.data.username"
                 class="aspect-square size-10 rounded-full"
             />
@@ -52,7 +49,7 @@ const { options } = useTwitterStore()
                             :class="
                                 cn(
                                     'pt-px text-[15px] leading-none font-bold text-nowrap',
-                                    'group-data-[theme=black]:text-twitter-primary-black group-data-[theme=dark]:text-twitter-primary-dark group-data-[theme=light]:text-twitter-primary-light'
+                                    'group-data-[theme=black]:text-twitter-primary-black group-data-[theme=dark]:text-twitter-primary-dark group-data-[theme=light]:text-twitter-primary-light',
                                 )
                             "
                         >
@@ -76,8 +73,8 @@ const { options } = useTwitterStore()
                         <img
                             v-if="props.data.organizationAvatarUrl?.length"
                             :src="props.data.organizationAvatarUrl"
-                            :alt="$t('twitter.organizationAvatar')"
-                            class="border-muted size-[15px] border"
+                            :alt="t('organizationAvatar')"
+                            class="border-muted size-3.75 border"
                         />
                         <div
                             :class="
@@ -85,21 +82,15 @@ const { options } = useTwitterStore()
                                     'flex items-center gap-1',
                                     'group-data-[theme=black]:text-twitter-secondary-black',
                                     'group-data-[theme=dark]:text-twitter-secondary-dark',
-                                    'group-data-[theme=light]:text-twitter-secondary-light'
+                                    'group-data-[theme=light]:text-twitter-secondary-light',
                                 )
                             "
                         >
                             <p class="text-[15px] leading-none text-nowrap">
                                 @{{ props.data.userId }}
                             </p>
-                            <Icon
-                                name="lucide:dot"
-                                size="10"
-                                class="-mx-0.5 pb-0.5"
-                            />
-                            <span
-                                class="pb-0.5 text-[15px] leading-none text-nowrap"
-                            >
+                            <Icon name="lucide:dot" size="10" class="-mx-0.5 pb-0.5" />
+                            <span class="pb-0.5 text-[15px] leading-none text-nowrap">
                                 {{ props.data.time }}
                             </span>
                         </div>
@@ -112,7 +103,7 @@ const { options } = useTwitterStore()
                             cn(
                                 'group-data-[theme=black]:text-twitter-secondary-black',
                                 'group-data-[theme=dark]:text-twitter-secondary-dark',
-                                'group-data-[theme=light]:text-twitter-secondary-light'
+                                'group-data-[theme=light]:text-twitter-secondary-light',
                             )
                         "
                     />
@@ -124,7 +115,7 @@ const { options } = useTwitterStore()
                             'text-[15px]',
                             'group-data-[theme=light]:text-twitter-primary-light',
                             'group-data-[theme=dark]:text-twitter-primary-dark',
-                            'group-data-[theme=black]:text-twitter-primary-black'
+                            'group-data-[theme=black]:text-twitter-primary-black',
                         )
                     "
                 >
@@ -136,9 +127,7 @@ const { options } = useTwitterStore()
                         :class="
                             cn(
                                 'grid aspect-video w-full gap-1 overflow-clip rounded-xl',
-                                props.data.images?.length === 1
-                                    ? 'grid-cols-1'
-                                    : 'grid-cols-2'
+                                props.data.images?.length === 1 ? 'grid-cols-1' : 'grid-cols-2',
                             )
                         "
                     >
@@ -150,14 +139,13 @@ const { options } = useTwitterStore()
                                     'aspect-auto w-full',
                                     props.data.images?.length === 3 &&
                                         'not-first:aspect-video first:row-span-2 first:aspect-auto',
-                                    props.data.images?.length === 4 &&
-                                        'aspect-video'
+                                    props.data.images?.length === 4 && 'aspect-video',
                                 )
                             "
                         >
                             <img
                                 :src="image"
-                                :alt="$t('twitter.postImage')"
+                                :alt="t('postImage')"
                                 class="size-full object-cover"
                             />
                         </div>
@@ -170,42 +158,34 @@ const { options } = useTwitterStore()
                             'flex w-full items-center justify-between gap-3 pt-1',
                             'group-data-[theme=black]:text-twitter-secondary-black',
                             'group-data-[theme=dark]:text-twitter-secondary-dark',
-                            'group-data-[theme=light]:text-twitter-secondary-light'
+                            'group-data-[theme=light]:text-twitter-secondary-light',
                         )
                     "
                 >
                     <div class="flex items-center gap-1">
                         <Icon name="presocial:twitter-reply" size="18" />
-                        <span
-                            class="pt-px text-[13px] leading-none text-nowrap"
-                        >
+                        <span class="pt-px text-[13px] leading-none text-nowrap">
                             {{ props.data.reply }}
                         </span>
                     </div>
 
                     <div class="flex items-center gap-1">
                         <Icon name="presocial:twitter-repost" size="18" />
-                        <span
-                            class="pt-px text-[13px] leading-none text-nowrap"
-                        >
+                        <span class="pt-px text-[13px] leading-none text-nowrap">
                             {{ props.data.repost }}
                         </span>
                     </div>
 
                     <div class="flex items-center gap-1">
                         <Icon name="presocial:twitter-like" size="18" />
-                        <span
-                            class="pt-px text-[13px] leading-none text-nowrap"
-                        >
+                        <span class="pt-px text-[13px] leading-none text-nowrap">
                             {{ props.data.like }}
                         </span>
                     </div>
 
                     <div class="flex items-center gap-1">
                         <Icon name="presocial:twitter-view" size="18" />
-                        <span
-                            class="pt-px text-[13px] leading-none text-nowrap"
-                        >
+                        <span class="pt-px text-[13px] leading-none text-nowrap">
                             {{ props.data.view }}
                         </span>
                     </div>
@@ -219,3 +199,18 @@ const { options } = useTwitterStore()
         </div>
     </div>
 </template>
+
+<i18n lang="json">
+{
+    "en": {
+        "reposted": " reposted",
+        "organizationAvatar": "Organization Avatar",
+        "postImage": "Post Image"
+    },
+    "ja": {
+        "reposted": "リポスト",
+        "organizationAvatar": "組織アイコン",
+        "postImage": "投稿画像"
+    }
+}
+</i18n>
