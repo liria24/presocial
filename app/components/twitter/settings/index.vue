@@ -52,7 +52,7 @@ const { state, options } = useTwitterStore()
                         :class="
                             cn(
                                 'ring-muted size-4 rounded-full ring-2',
-                                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light'
+                                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light',
                             )
                         "
                     />
@@ -64,7 +64,7 @@ const { state, options } = useTwitterStore()
                         :class="
                             cn(
                                 'ring-muted size-4 rounded-full ring-2',
-                                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light'
+                                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light',
                             )
                         "
                     />

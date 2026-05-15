@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { NuxtError } from '#app'
 import * as locales from '@nuxt/ui/locale'
+
+import type { NuxtError } from '#app'
 
 const { t, locale } = useI18n({ useScope: 'local' })
 

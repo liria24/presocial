@@ -14,7 +14,7 @@ const { options } = useTwitterStore()
         :class="
             cn(
                 'group flex min-h-12 flex-col gap-2 p-3.5',
-                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light'
+                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light',
             )
         "
     >
@@ -25,7 +25,7 @@ const { options } = useTwitterStore()
                     'flex items-center gap-2 pl-6',
                     'group-data-[theme=black]:text-twitter-secondary-black',
                     'group-data-[theme=dark]:text-twitter-secondary-dark',
-                    'group-data-[theme=light]:text-twitter-secondary-light'
+                    'group-data-[theme=light]:text-twitter-secondary-light',
                 )
             "
         >
@@ -49,7 +49,7 @@ const { options } = useTwitterStore()
                             :class="
                                 cn(
                                     'pt-px text-[15px] leading-none font-bold text-nowrap',
-                                    'group-data-[theme=black]:text-twitter-primary-black group-data-[theme=dark]:text-twitter-primary-dark group-data-[theme=light]:text-twitter-primary-light'
+                                    'group-data-[theme=black]:text-twitter-primary-black group-data-[theme=dark]:text-twitter-primary-dark group-data-[theme=light]:text-twitter-primary-light',
                                 )
                             "
                         >
@@ -82,7 +82,7 @@ const { options } = useTwitterStore()
                                     'flex items-center gap-1',
                                     'group-data-[theme=black]:text-twitter-secondary-black',
                                     'group-data-[theme=dark]:text-twitter-secondary-dark',
-                                    'group-data-[theme=light]:text-twitter-secondary-light'
+                                    'group-data-[theme=light]:text-twitter-secondary-light',
                                 )
                             "
                         >
@@ -103,7 +103,7 @@ const { options } = useTwitterStore()
                             cn(
                                 'group-data-[theme=black]:text-twitter-secondary-black',
                                 'group-data-[theme=dark]:text-twitter-secondary-dark',
-                                'group-data-[theme=light]:text-twitter-secondary-light'
+                                'group-data-[theme=light]:text-twitter-secondary-light',
                             )
                         "
                     />
@@ -115,7 +115,7 @@ const { options } = useTwitterStore()
                             'text-[15px]',
                             'group-data-[theme=light]:text-twitter-primary-light',
                             'group-data-[theme=dark]:text-twitter-primary-dark',
-                            'group-data-[theme=black]:text-twitter-primary-black'
+                            'group-data-[theme=black]:text-twitter-primary-black',
                         )
                     "
                 >
@@ -127,7 +127,7 @@ const { options } = useTwitterStore()
                         :class="
                             cn(
                                 'grid aspect-video w-full gap-1 overflow-clip rounded-xl',
-                                props.data.images?.length === 1 ? 'grid-cols-1' : 'grid-cols-2'
+                                props.data.images?.length === 1 ? 'grid-cols-1' : 'grid-cols-2',
                             )
                         "
                     >
@@ -139,7 +139,7 @@ const { options } = useTwitterStore()
                                     'aspect-auto w-full',
                                     props.data.images?.length === 3 &&
                                         'not-first:aspect-video first:row-span-2 first:aspect-auto',
-                                    props.data.images?.length === 4 && 'aspect-video'
+                                    props.data.images?.length === 4 && 'aspect-video',
                                 )
                             "
                         >
@@ -158,7 +158,7 @@ const { options } = useTwitterStore()
                             'flex w-full items-center justify-between gap-3 pt-1',
                             'group-data-[theme=black]:text-twitter-secondary-black',
                             'group-data-[theme=dark]:text-twitter-secondary-dark',
-                            'group-data-[theme=light]:text-twitter-secondary-light'
+                            'group-data-[theme=light]:text-twitter-secondary-light',
                         )
                     "
                 >

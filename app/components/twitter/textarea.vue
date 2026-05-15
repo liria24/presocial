@@ -110,7 +110,7 @@ const parseText = (input: string): TextSegment[] => {
 
 // 表示用の完全なテキスト（確定テキスト+未確定テキスト）
 const displayText = computed(() =>
-    isComposing.value ? text.value + composingText.value : text.value
+    isComposing.value ? text.value + composingText.value : text.value,
 )
 
 // 表示用のスタイル付きセグメント
@@ -199,7 +199,7 @@ onMounted(adjustTextareaHeight)
                                     'group-data-[theme=light]:text-twitter-primary-light',
                                     'group-data-[theme=dark]:text-twitter-primary-dark',
                                     'group-data-[theme=black]:text-twitter-primary-black',
-                                ]
+                                ],
                             )
                         "
                     >
@@ -212,7 +212,7 @@ onMounted(adjustTextareaHeight)
                         cn(
                             'group-data-[theme=light]:text-twitter-secondary-light',
                             'group-data-[theme=dark]:text-twitter-secondary-dark',
-                            'group-data-[theme=black]:text-twitter-secondary-black'
+                            'group-data-[theme=black]:text-twitter-secondary-black',
                         )
                     "
                 >

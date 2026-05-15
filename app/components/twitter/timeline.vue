@@ -13,7 +13,7 @@ const { state, options } = useTwitterStore()
                 !options.timeline && !state.images?.length && 'mt-10',
                 options.theme === 'light' && 'divide-twitter-light',
                 options.theme === 'dark' && 'divide-twitter-dark',
-                options.theme === 'black' && 'divide-twitter-black'
+                options.theme === 'black' && 'divide-twitter-black',
             )
         "
     >

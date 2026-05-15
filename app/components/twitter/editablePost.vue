@@ -36,7 +36,7 @@ const removeImage = (index: number) => {
         :class="
             cn(
                 'group flex min-h-12 flex-col gap-2 p-3.5',
-                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light'
+                'data-[theme=black]:bg-twitter-black data-[theme=dark]:bg-twitter-dark data-[theme=light]:bg-twitter-light',
             )
         "
     >
@@ -47,7 +47,7 @@ const removeImage = (index: number) => {
                     'flex items-center gap-2 pl-6',
                     'group-data-[theme=black]:text-twitter-secondary-black',
                     'group-data-[theme=dark]:text-twitter-secondary-dark',
-                    'group-data-[theme=light]:text-twitter-secondary-light'
+                    'group-data-[theme=light]:text-twitter-secondary-light',
                 )
             "
         >
@@ -148,7 +148,7 @@ const removeImage = (index: number) => {
                             :class="
                                 cn(
                                     'inline-block min-w-[1ch] cursor-text pt-px text-[15px] leading-none font-bold text-nowrap outline-none',
-                                    'group-data-[theme=black]:text-twitter-primary-black group-data-[theme=dark]:text-twitter-primary-dark group-data-[theme=light]:text-twitter-primary-light'
+                                    'group-data-[theme=black]:text-twitter-primary-black group-data-[theme=dark]:text-twitter-primary-dark group-data-[theme=light]:text-twitter-primary-light',
                                 )
                             "
                         >
@@ -181,7 +181,7 @@ const removeImage = (index: number) => {
                                     'flex items-center gap-1',
                                     'group-data-[theme=black]:text-twitter-secondary-black',
                                     'group-data-[theme=dark]:text-twitter-secondary-dark',
-                                    'group-data-[theme=light]:text-twitter-secondary-light'
+                                    'group-data-[theme=light]:text-twitter-secondary-light',
                                 )
                             "
                         >
@@ -217,7 +217,7 @@ const removeImage = (index: number) => {
                             cn(
                                 'group-data-[theme=black]:text-twitter-secondary-black',
                                 'group-data-[theme=dark]:text-twitter-secondary-dark',
-                                'group-data-[theme=light]:text-twitter-secondary-light'
+                                'group-data-[theme=light]:text-twitter-secondary-light',
                             )
                         "
                     />
@@ -252,7 +252,7 @@ const removeImage = (index: number) => {
                         cn(
                             'grid aspect-video w-full gap-1 overflow-clip rounded-xl',
                             state.images?.length === 1 ? 'grid-cols-1' : 'grid-cols-2',
-                            !state.content.length && '-mt-4'
+                            !state.content.length && '-mt-4',
                         )
                     "
                 >
@@ -265,7 +265,7 @@ const removeImage = (index: number) => {
                                 'aspect-auto w-full cursor-pointer transition-opacity hover:opacity-60',
                                 state.images?.length === 3 &&
                                     'not-first:aspect-video first:row-span-2 first:aspect-auto',
-                                state.images?.length === 4 && 'aspect-video'
+                                state.images?.length === 4 && 'aspect-video',
                             )
                         "
                         @click="removeImage(index)"
@@ -284,7 +284,7 @@ const removeImage = (index: number) => {
                             'flex w-full items-center justify-between gap-3 pt-1',
                             'group-data-[theme=black]:text-twitter-secondary-black',
                             'group-data-[theme=dark]:text-twitter-secondary-dark',
-                            'group-data-[theme=light]:text-twitter-secondary-light'
+                            'group-data-[theme=light]:text-twitter-secondary-light',
                         )
                     "
                 >

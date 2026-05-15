@@ -9,5 +9,5 @@ export const useSiteStore = defineStore(
     },
     {
         persist: true,
-    }
+    },
 )
