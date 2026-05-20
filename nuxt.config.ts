@@ -70,6 +70,10 @@ export default defineNuxtConfig({
             nodeCompat: true,
             wrangler: {
                 name: 'presocial',
+                vars: {
+                    NUXT_PUBLIC_SITE_URL: 'https://presocial.liria.me',
+                },
+                routes: [{ pattern: 'presocial.liria.me', custom_domain: true }],
             },
         },
         compressPublicAssets: true,
@@ -111,7 +115,7 @@ export default defineNuxtConfig({
                 { name: 'viewport', content: 'width=device-width, initial-scale=1' },
                 { property: 'og:site_name', content: title },
                 { property: 'og:type', content: 'website' },
-                { property: 'og:url', content: 'https://presocial.vercel.app' },
+                { property: 'og:url', content: 'https://presocial.liria.me' },
                 { property: 'og:title', content: title },
                 // { property: 'og:image', content: 'https://presocial.vercel.app/ogp.png' },
                 { name: 'description', content: description },
