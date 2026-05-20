@@ -25,7 +25,6 @@ export default defineNuxtConfig({
         'pinia-plugin-persistedstate/nuxt',
         '@nuxt/hints',
         '@nuxt/a11y',
-        '@vercel/analytics',
     ],
 
     css: ['~/assets/css/main.css'],
@@ -49,6 +48,13 @@ export default defineNuxtConfig({
 
     routeRules: {
         '/roadmap': { prerender: true },
+        '/sw.js': { headers: { 'Cache-Control': 'public, max-age=0, must-revalidate' } },
+        '/manifest.webmanifest': {
+            headers: {
+                'Cache-Control': 'public, max-age=0, must-revalidate',
+                'Content-Type': 'application/manifest+json',
+            },
+        },
     },
 
     runtimeConfig: {
@@ -58,17 +64,26 @@ export default defineNuxtConfig({
     },
 
     nitro: {
-        preset: 'vercel',
-        compressPublicAssets: true,
-        vercel: {
-            config: {
-                images: {
-                    minimumCacheTTL: 2678400, // 31 days
-                },
+        preset: 'cloudflare_module',
+        cloudflare: {
+            deployConfig: true,
+            nodeCompat: true,
+            wrangler: {
+                name: 'presocial',
             },
         },
+        compressPublicAssets: true,
         experimental: {
             asyncContext: true,
+        },
+    },
+
+    typescript: {
+        typeCheck: true,
+        tsConfig: {
+            compilerOptions: {
+                noUncheckedIndexedAccess: true,
+            },
         },
     },
 
@@ -159,6 +174,10 @@ export default defineNuxtConfig({
     },
 
     image: {
+        provider: 'cloudflare',
+        cloudflare: {
+            baseURL: 'https://liria.me',
+        },
         domains: [
             'avatars.githubusercontent.com', // GitHub User Avatars
         ],
