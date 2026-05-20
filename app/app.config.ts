@@ -9,10 +9,10 @@ export default defineAppConfig({
         liriaAvatar: 'https://github.com/liria24.png',
     },
     external: {
-        vercel: {
-            name: 'Vercel',
-            url: 'https://vercel.com',
-            icon: 'simple-icons:vercel',
+        cloudflare: {
+            name: 'Cloudflare Workers',
+            url: 'https://cloudflare.com',
+            icon: 'simple-icons:cloudflare',
         },
         nuxt: {
             name: 'Nuxt',
