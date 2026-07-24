@@ -6,7 +6,11 @@ const description = 'Simple tool to preview X/Twitter posts.'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    compatibilityDate: '2024-11-01',
+    future: {
+        compatibilityVersion: 5,
+    },
+
+    compatibilityDate: '2026-07-23',
 
     devtools: { enabled: true, timeline: { enabled: true } },
 
@@ -35,18 +39,10 @@ export default defineNuxtConfig({
                 optionsAPI: false,
             },
         },
-        optimizeDeps: {
-            include: [
-                '@nuxt/ui > prosemirror-state',
-                '@nuxt/ui > prosemirror-transform',
-                '@nuxt/ui > prosemirror-model',
-                '@nuxt/ui > prosemirror-view',
-                '@nuxt/ui > prosemirror-gapcursor',
-            ],
-        },
     },
 
     routeRules: {
+        '/': { prerender: true },
         '/roadmap': { prerender: true },
         '/sw.js': { headers: { 'Cache-Control': 'public, max-age=0, must-revalidate' } },
         '/manifest.webmanifest': {
@@ -92,11 +88,14 @@ export default defineNuxtConfig({
     },
 
     experimental: {
+        prefetchPreloadTags: true,
         crossOriginPrefetch: true,
-        extractAsyncDataHandlers: true,
-        inlineRouteRules: true,
         sharedPrerenderData: true,
+        extractAsyncDataHandlers: true,
         typescriptPlugin: true,
+        inlineRouteRules: true,
+        componentIslands: true,
+        nitroAutoImports: true,
     },
 
     site: {

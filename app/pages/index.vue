@@ -21,7 +21,7 @@ useSchemaOrg([
 </script>
 
 <template>
-    <div class="flex w-full flex-col items-center gap-16 pt-6">
+    <div class="flex w-full flex-col items-center gap-16 pb-12">
         <div v-if="state.showHero" class="flex flex-col items-center gap-3">
             <UButton
                 to="/roadmap"

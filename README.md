@@ -18,7 +18,7 @@ Simple tool to preview X/Twitter posts.
 
 <div align="center">
 
-Copyright © 2025 **[Liria][liria]**
+Copyright © 2026 **[Liria][liria]**
 
 </div>
 
